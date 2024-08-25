@@ -4,8 +4,8 @@ export type InputFormData = {
   estimatedInterestRate: number;
   age?: number;
   annualInflationRate?: number;
-  monthlyDeposits?: number;
-  monthlyDepositsIncreaseRate?: number;
+  monthlyDeposit?: number;
+  monthlyDepositIncreaseRate?: number;
 };
 
 export type CompoundInterestData = {

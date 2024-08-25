@@ -50,11 +50,11 @@ export default function CompoundInterestForm() {
       min: { value: 0, message: "Value must be greater than 0." },
       max: { value: 100, message: "Value must be less than 100." },
     }),
-    monthlyDeposits: register("monthlyDeposits", {
+    monthlyDeposit: register("monthlyDeposit", {
       valueAsNumber: true,
       min: { value: 0, message: "Value must be greater than 0." },
     }),
-    monthlyDepositsIncreaseRate: register("monthlyDepositsIncreaseRate", {
+    monthlyDepositIncreaseRate: register("monthlyDepositIncreaseRate", {
       valueAsNumber: true,
       min: { value: 0, message: "Value must be greater than 0." },
       max: { value: 1000, message: "Value must be less than 1000." },
@@ -145,28 +145,28 @@ export default function CompoundInterestForm() {
                 )}
               </li>
               <li className="flex flex-col items-center">
-                <label className="font-medium mb-2">Monthly deposits:</label>
+                <label className="font-medium mb-2">Monthly deposit:</label>
                 <input
-                  {...fields.monthlyDeposits}
+                  {...fields.monthlyDeposit}
                   className="rounded-lg p-2 text-white bg-sky-800 opacity-80"
                 />
-                {errors.monthlyDeposits && (
+                {errors.monthlyDeposit && (
                   <p className="text-sm italic text-red-500">
-                    {errors.monthlyDeposits.message?.toString()}
+                    {errors.monthlyDeposit.message?.toString()}
                   </p>
                 )}
               </li>
               <li className="flex flex-col items-center">
                 <label className="font-medium mb-2">
-                  Deposits increase rate:
+                  Deposit increase rate:
                 </label>
                 <input
-                  {...fields.monthlyDepositsIncreaseRate}
+                  {...fields.monthlyDepositIncreaseRate}
                   className="rounded-lg p-2 text-white bg-sky-800 opacity-80"
                 />
-                {errors.monthlyDepositsIncreaseRate && (
+                {errors.monthlyDepositIncreaseRate && (
                   <p className="text-sm italic text-red-500">
-                    {errors.monthlyDepositsIncreaseRate.message?.toString()}
+                    {errors.monthlyDepositIncreaseRate.message?.toString()}
                   </p>
                 )}
               </li>

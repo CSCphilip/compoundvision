@@ -9,7 +9,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer,
 } from "recharts";
 
 interface CompoundInterestChartProps {
@@ -49,6 +48,24 @@ export default function CompoundInterestChart({
         <XAxis dataKey="year" />
         <YAxis domain={["dataMin", "auto"]} />
         <Tooltip />
+        {inputFormData.monthlyDeposit && (
+          <>
+            <Area
+              type="monotone"
+              dataKey="totalWithContributions"
+              stroke="#dc2626"
+              fill="#dc2626"
+            />
+            {inputFormData.annualInflationRate && (
+              <Area
+                type="monotone"
+                dataKey="totalWithContributionsInflationAdjusted"
+                stroke="#84cc16"
+                fill="#84cc16"
+              />
+            )}
+          </>
+        )}
         <Area type="monotone" dataKey="total" stroke="#82ca9d" fill="#82ca9d" />
         {inputFormData.annualInflationRate && (
           <Area
@@ -56,9 +73,14 @@ export default function CompoundInterestChart({
             dataKey="totalInflationAdjusted"
             stroke="#8884d8"
             fill="#8884d8"
-            isAnimationActive={true}
           />
         )}
+        <Area
+          type="monotone"
+          dataKey="contributions"
+          stroke="#6b7280"
+          fill="#6b7280"
+        />
       </AreaChart>
     </div>
   );
@@ -70,23 +92,32 @@ function calcCompoundInterest(
   const currentYear = new Date().getFullYear();
 
   const compoundInterestData: CompoundInterestData[] = [];
+
   compoundInterestData.push({
     total: inputFormData.initialAmount,
     year: currentYear,
     interest: 0,
-    totalInflationAdjusted:
-      inputFormData.annualInflationRate && inputFormData.initialAmount,
+    totalInflationAdjusted: isNaN(inputFormData.annualInflationRate!)
+      ? undefined
+      : inputFormData.initialAmount,
+    totalWithContributions: isNaN(inputFormData.monthlyDeposit!)
+      ? undefined
+      : inputFormData.initialAmount,
+    totalWithContributionsInflationAdjusted:
+      isNaN(inputFormData.monthlyDeposit!) ||
+      isNaN(inputFormData.annualInflationRate!)
+        ? undefined
+        : inputFormData.initialAmount,
+    contributions: inputFormData.initialAmount,
   });
 
   const interestRate = inputFormData.estimatedInterestRate / 100;
-  const monthlyInterestRate = interestRate / 12;
 
-  const calcInflationAdjustment =
-    inputFormData.annualInflationRate !== undefined;
-  const calcCompoundWithMonthlyDeposits =
-    inputFormData.monthlyDeposits !== undefined;
+  const calcInflationAdjustment = !isNaN(inputFormData.annualInflationRate!);
+  const calcCompoundWithMonthlyDeposits = !isNaN(inputFormData.monthlyDeposit!);
 
   let total = inputFormData.initialAmount;
+  let contributions = total;
   for (var i = 1; i <= inputFormData.years; i++) {
     const interest = total * interestRate;
     total += interest;
@@ -97,10 +128,27 @@ function calcCompoundInterest(
         total / Math.pow(1 + inputFormData.annualInflationRate! / 100, i);
     }
 
-    // TODO: Monthly payments
+    // Compound interest of monthly deposits with an annual period (not compounded every month)
+    // Formula based on: https://rikatillsammans.se/ranta-pa-ranta-formler-excels-slutvarde-och-min-kalkylator/
     let totalWithContributions: number | undefined = undefined;
+    let totalWithContributionsInflationAdjusted: number | undefined = undefined;
     if (calcCompoundWithMonthlyDeposits) {
-      totalWithContributions = 0;
+      const currentMonthlyDeposits = inputFormData.monthlyDepositIncreaseRate
+        ? inputFormData.monthlyDeposit! *
+          Math.pow(1 + inputFormData.monthlyDepositIncreaseRate / 100, i - 1)
+        : inputFormData.monthlyDeposit!;
+      contributions += currentMonthlyDeposits * 12;
+      totalWithContributions = total;
+      totalWithContributions +=
+        currentMonthlyDeposits *
+        12 *
+        ((Math.pow(1 + interestRate, i) - 1) / interestRate);
+
+      if (calcInflationAdjustment) {
+        totalWithContributionsInflationAdjusted =
+          totalWithContributions /
+          Math.pow(1 + inputFormData.annualInflationRate! / 100, i);
+      }
     }
 
     compoundInterestData.push({
@@ -109,6 +157,8 @@ function calcCompoundInterest(
       interest,
       totalInflationAdjusted,
       totalWithContributions,
+      totalWithContributionsInflationAdjusted,
+      contributions,
     });
   }
 
