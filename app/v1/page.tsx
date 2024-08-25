@@ -2,7 +2,7 @@
 
 import CompoundInterestForm, {
   Input,
-} from "../_components/CompoundInterestForm";
+} from "../_components/v1/CompoundInterestForm";
 
 import {
   Area,
