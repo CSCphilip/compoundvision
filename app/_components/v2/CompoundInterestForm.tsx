@@ -68,7 +68,7 @@ export default function CompoundInterestForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmitCompoundInterestForm)}
-      className="flex w-fit border-gray-400 border rounded-xl pt-5 pb-8 px-14"
+      className="flex w-fit border-gray-400 border rounded-lg pt-5 pb-8 px-14"
     >
       <ul className="flex flex-col gap-y-2">
         <li className="flex flex-col items-center">
@@ -76,7 +76,7 @@ export default function CompoundInterestForm() {
           <input
             {...fields.initialAmount}
             defaultValue={10000}
-            className="rounded-lg p-2 text-white bg-sky-800 opacity-80"
+            className="rounded-lg p-2 text-white bg-[#323546] opacity-80"
           />
           {errors.initialAmount && (
             <p className="text-sm italic text-red-500">
@@ -89,7 +89,7 @@ export default function CompoundInterestForm() {
           <input
             {...fields.years}
             defaultValue={15}
-            className="rounded-lg p-2 text-white bg-sky-800 opacity-90"
+            className="rounded-lg p-2 text-white bg-[#323546] opacity-90"
           />
           {errors.years && (
             <p className="text-sm italic text-red-500">
@@ -102,7 +102,7 @@ export default function CompoundInterestForm() {
           <input
             {...fields.estimatedInterestRate}
             defaultValue={8}
-            className="rounded-lg p-2 text-white bg-sky-800 opacity-80"
+            className="rounded-lg p-2 text-white bg-[#323546] opacity-80"
           />
           {errors.estimatedInterestRate && (
             <p className="text-sm italic text-red-500">
@@ -122,7 +122,7 @@ export default function CompoundInterestForm() {
                 <label className="font-medium mb-2">Age:</label>
                 <input
                   {...fields.age}
-                  className="rounded-lg p-2 text-white bg-sky-800 opacity-80"
+                  className="rounded-lg p-2 text-white bg-[#323546] opacity-80"
                 />
                 {errors.age && (
                   <p className="text-sm italic text-red-500">
@@ -136,7 +136,7 @@ export default function CompoundInterestForm() {
                 </label>
                 <input
                   {...fields.annualInflationRate}
-                  className="rounded-lg p-2 text-white bg-sky-800 opacity-80"
+                  className="rounded-lg p-2 text-white bg-[#323546] opacity-80"
                 />
                 {errors.annualInflationRate && (
                   <p className="text-sm italic text-red-500">
@@ -148,7 +148,7 @@ export default function CompoundInterestForm() {
                 <label className="font-medium mb-2">Monthly deposit:</label>
                 <input
                   {...fields.monthlyDeposit}
-                  className="rounded-lg p-2 text-white bg-sky-800 opacity-80"
+                  className="rounded-lg p-2 text-white bg-[#323546] opacity-80"
                 />
                 {errors.monthlyDeposit && (
                   <p className="text-sm italic text-red-500">
@@ -162,7 +162,7 @@ export default function CompoundInterestForm() {
                 </label>
                 <input
                   {...fields.monthlyDepositIncreaseRate}
-                  className="rounded-lg p-2 text-white bg-sky-800 opacity-80"
+                  className="rounded-lg p-2 text-white bg-[#323546] opacity-80"
                 />
                 {errors.monthlyDepositIncreaseRate && (
                   <p className="text-sm italic text-red-500">

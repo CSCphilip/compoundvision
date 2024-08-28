@@ -37,12 +37,12 @@ export default function CompoundInterestChart({
   if (!isMounted) return null;
 
   return (
-    <div className="border border-gray-400 py-8 px-20 rounded-md">
+    <div className="py-8 px-20 rounded-md">
       <AreaChart
-        width={700}
-        height={400}
+        width={1000}
+        height={500}
         data={compoundInterestData}
-        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+        margin={{ top: 10, right: 0, left: 0, bottom: 0 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="year" />
