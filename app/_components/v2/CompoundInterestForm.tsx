@@ -26,36 +26,43 @@ export default function CompoundInterestForm() {
     initialAmount: register("initialAmount", {
       required: { value: true, message: "Field must be filled." },
       valueAsNumber: true,
-      min: { value: 0, message: "Amount must be greater than 0." },
+      validate: (value) => !isNaN(value) || "Must be a valid number.",
+      min: { value: 1, message: "Amount must be greater than 0." },
     }),
     years: register("years", {
       required: { value: true, message: "Field must be filled." },
       valueAsNumber: true,
+      validate: (value) => !isNaN(value) || "Must be a valid number.",
       min: { value: 1, message: "Value must be greater than 1." },
       max: { value: 200, message: "Value must be less than 200." },
     }),
     estimatedInterestRate: register("estimatedInterestRate", {
       required: { value: true, message: "Field must be filled." },
       valueAsNumber: true,
+      validate: (value) => !isNaN(value) || "Must be a valid number.",
       min: { value: 0, message: "Value must be greater than 0." },
       max: { value: 500, message: "Value mest be less than 500." },
     }),
     age: register("age", {
-      valueAsNumber: true,
+      validate: (value) =>
+        value === undefined || !isNaN(value) || "Must be a valid number.",
       min: { value: 0, message: "Value must be greater than 0." },
       max: { value: 200, message: "Value must be less than 200." },
     }),
     annualInflationRate: register("annualInflationRate", {
-      valueAsNumber: true,
+      validate: (value) =>
+        value === undefined || !isNaN(value) || "Must be a valid number.",
       min: { value: 0, message: "Value must be greater than 0." },
       max: { value: 100, message: "Value must be less than 100." },
     }),
     monthlyDeposit: register("monthlyDeposit", {
-      valueAsNumber: true,
+      validate: (value) =>
+        value === undefined || !isNaN(value) || "Must be a valid number.",
       min: { value: 0, message: "Value must be greater than 0." },
     }),
     monthlyDepositIncreaseRate: register("monthlyDepositIncreaseRate", {
-      valueAsNumber: true,
+      validate: (value) =>
+        value === undefined || !isNaN(value) || "Must be a valid number.",
       min: { value: 0, message: "Value must be greater than 0." },
       max: { value: 1000, message: "Value must be less than 1000." },
     }),
@@ -111,25 +118,13 @@ export default function CompoundInterestForm() {
           )}
         </li>
         {/* Optional input fields */}
-        <li className="overflow-hidden mt-5 pt-2 border-t px-1 pb-1">
+        <li className="overflow-hidden mt-5 pt-5 border-t px-1 pb-1">
           <motion.div
             initial={false}
             animate={optionals ? "open" : "closed"}
             variants={optionalVariants}
           >
-            <ul>
-              <li className="flex flex-col items-center">
-                <label className="font-medium mb-2">Age:</label>
-                <input
-                  {...fields.age}
-                  className="rounded-lg p-2 text-white bg-[#323546] opacity-80"
-                />
-                {errors.age && (
-                  <p className="text-sm italic text-red-500">
-                    {errors.age.message?.toString()}
-                  </p>
-                )}
-              </li>
+            <ul className="flex flex-col gap-y-2">
               <li className="flex flex-col items-center">
                 <label className="font-medium mb-2">
                   Annual inflation rate:
@@ -167,6 +162,18 @@ export default function CompoundInterestForm() {
                 {errors.monthlyDepositIncreaseRate && (
                   <p className="text-sm italic text-red-500">
                     {errors.monthlyDepositIncreaseRate.message?.toString()}
+                  </p>
+                )}
+              </li>
+              <li className="flex flex-col items-center">
+                <label className="font-medium mb-2">Age:</label>
+                <input
+                  {...fields.age}
+                  className="rounded-lg p-2 text-white bg-[#323546] opacity-80"
+                />
+                {errors.age && (
+                  <p className="text-sm italic text-red-500">
+                    {errors.age.message?.toString()}
                   </p>
                 )}
               </li>

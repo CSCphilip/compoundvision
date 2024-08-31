@@ -1,5 +1,6 @@
 "use client";
 
+import { useCompoundInterestForm } from "@/app/_context/CompoundInterestFormContext";
 import { InputFormData, CompoundInterestData } from "@/app/_types";
 import { useEffect, useState } from "react";
 import {
@@ -9,21 +10,21 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  ReferenceLine,
 } from "recharts";
 
 interface CompoundInterestChartProps {
   inputFormData: InputFormData;
 }
 
-export default function CompoundInterestChart({
-  inputFormData,
-}: CompoundInterestChartProps) {
+export default function CompoundInterestChart() {
+  const { inputFormData } = useCompoundInterestForm();
   const [compoundInterestData, setCompoundInterestData] = useState<
     CompoundInterestData[]
   >([]);
 
   useEffect(() => {
-    const calculatedCompoundedInterest = calcCompoundInterest(inputFormData);
+    const calculatedCompoundedInterest = calcCompoundInterest(inputFormData!);
     console.log(calculatedCompoundedInterest);
     setCompoundInterestData(calculatedCompoundedInterest);
   }, [inputFormData]);
@@ -42,50 +43,179 @@ export default function CompoundInterestChart({
         width={1000}
         height={500}
         data={compoundInterestData}
-        margin={{ top: 10, right: 0, left: 0, bottom: 0 }}
+        margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+        className="border-l-2 border-l-[#363a41]"
       >
-        <CartesianGrid strokeDasharray="3 3" />
+        <defs>
+          <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#104f42" stopOpacity={0.9} />
+            <stop offset="100%" stopColor="#104f42" stopOpacity={0.05} />
+          </linearGradient>
+          <linearGradient id="colorInflationTotal" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#facc15" stopOpacity={0.5} />
+            <stop offset="100%" stopColor="" stopOpacity={0.05} />
+          </linearGradient>
+          <linearGradient id="colorContributions" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#6b66cf" stopOpacity={0.9} />
+            <stop offset="100%" stopColor="#6b66cf" stopOpacity={0.05} />
+          </linearGradient>
+        </defs>
+
+        <CartesianGrid strokeDasharray="3 3" opacity={0.5} />
+
         <XAxis dataKey="year" />
-        <YAxis domain={["dataMin", "auto"]} />
-        <Tooltip />
-        {inputFormData.monthlyDeposit && (
+
+        <YAxis
+          type="number"
+          domain={["auto", "auto"]}
+          tickCount={9}
+          padding={{ top: 20 }}
+          tickFormatter={formatYAxis}
+          orientation="right"
+        />
+
+        <Tooltip animationDuration={500} content={<CustomTooltip />} />
+
+        {inputFormData!.monthlyDeposit ? (
           <>
             <Area
               type="monotone"
               dataKey="totalWithContributions"
-              stroke="#dc2626"
-              fill="#dc2626"
+              stroke="#15bf7f"
+              strokeWidth={2}
+              fillOpacity={1}
+              fill="url(#colorTotal)"
             />
-            {inputFormData.annualInflationRate && (
+            {inputFormData!.annualInflationRate && (
               <Area
                 type="monotone"
                 dataKey="totalWithContributionsInflationAdjusted"
-                stroke="#84cc16"
-                fill="#84cc16"
+                stroke="#facc15"
+                strokeWidth={2}
+                fillOpacity={1}
+                fill="url(#colorInflationTotal)"
+              />
+            )}
+          </>
+        ) : (
+          <>
+            <Area
+              type="monotone"
+              dataKey="total"
+              stroke="#15bf7f"
+              strokeWidth={2}
+              fillOpacity={1}
+              fill="url(#colorTotal)"
+            />
+            {inputFormData!.annualInflationRate && (
+              <Area
+                type="monotone"
+                dataKey="totalInflationAdjusted"
+                stroke="#facc15"
+                strokeWidth={2}
+                fillOpacity={1}
+                fill="url(#colorInflationTotal)"
               />
             )}
           </>
         )}
-        <Area type="monotone" dataKey="total" stroke="#82ca9d" fill="#82ca9d" />
-        {inputFormData.annualInflationRate && (
-          <Area
-            type="monotone"
-            dataKey="totalInflationAdjusted"
-            stroke="#8884d8"
-            fill="#8884d8"
-          />
-        )}
         <Area
           type="monotone"
           dataKey="contributions"
-          stroke="#6b7280"
-          fill="#6b7280"
+          stroke="#8884d8"
+          strokeWidth={2}
+          fillOpacity={1}
+          fill="url(#colorContributions)"
         />
       </AreaChart>
     </div>
   );
 }
 
+function CustomTooltip({ active, payload, label }: any) {
+  const { inputFormData } = useCompoundInterestForm();
+
+  const age = inputFormData!.age;
+  const currentYear = new Date().getFullYear();
+
+  const formatAmount = (num: number): string => {
+    return new Intl.NumberFormat("en-US", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+      useGrouping: true,
+    })
+      .format(num)
+      .replace(/,/g, " ");
+  };
+
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-gray-700 p-2 text-sm rounded-lg">
+        <p className="font-bold text-base">{label}</p>
+        <p className="">{`Nominal amount: ${formatAmount(
+          payload[0].value
+        )}`}</p>
+        {payload[2] ? (
+          <>
+            <p>{`Real amount: ${formatAmount(payload[1].value)}`}</p>
+            <p>{`Capital inputs: ${formatAmount(payload[2].value)}`}</p>
+          </>
+        ) : (
+          <p>{`Capital inputs: ${formatAmount(payload[1].value)}`}</p>
+        )}
+        {age && (
+          <p>{`Age: ${Number(age) + Number(label) - Number(currentYear)}`}</p>
+        )}
+      </div>
+    );
+  }
+
+  return null;
+}
+
+function formatYAxis(number: any, index: number): string {
+  return abbrNum(number, 1);
+}
+
+// Based on: https://stackoverflow.com/questions/2685911/is-there-a-way-to-round-numbers-into-a-reader-friendly-format-e-g-1-1k
+function abbrNum(number: number, decPlaces: number) {
+  // 1 decimal places => 10 , 2 decimal places => 100 , 3 => 1000 , etc
+  decPlaces = Math.pow(10, decPlaces);
+
+  // Enumerate number abbreviations
+  var abbrev = ["k", "m", "b", "t"];
+
+  let res: string = number.toString();
+
+  // Go through the array backwards, so we do the largest first
+  for (var i = abbrev.length - 1; i >= 0; i--) {
+    // Convert array index to "1000", "1000000", etc
+    var size = Math.pow(10, (i + 1) * 3);
+
+    // If the number is bigger or equal do the abbreviation
+    if (size <= number) {
+      // Here, we multiply by decPlaces, round, and then divide by decPlaces.
+      // This gives us nice rounding to a particular decimal place.
+      number = Math.round((number * decPlaces) / size) / decPlaces;
+
+      // Handle special case where we round up to the next abbreviation
+      if (number == 1000 && i < abbrev.length - 1) {
+        number = 1;
+        i++;
+      }
+
+      // Add the letter for the abbreviation
+      res = number + abbrev[i];
+
+      // We are done... stop
+      break;
+    }
+  }
+
+  return res;
+}
+
+//TODO: optional: the reverse where a user clicks on a year and amount where the initial is calculated and the rest from there.
 function calcCompoundInterest(
   inputFormData: InputFormData
 ): CompoundInterestData[] {

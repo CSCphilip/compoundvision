@@ -34,7 +34,7 @@ export default function CompoundVisionV2() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1, ease: "easeInOut" }}
           >
-            <CompoundInterestChart inputFormData={inputFormData} />
+            <CompoundInterestChart />
           </motion.div>
         )}
       </div>
