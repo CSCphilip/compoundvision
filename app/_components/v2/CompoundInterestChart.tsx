@@ -38,7 +38,7 @@ export default function CompoundInterestChart() {
   if (!isMounted) return null;
 
   return (
-    <div className="py-8 px-20 rounded-md">
+    <div className="ms-12">
       <AreaChart
         width={1000}
         height={500}
