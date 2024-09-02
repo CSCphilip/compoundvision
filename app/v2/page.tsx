@@ -14,31 +14,36 @@ export default function CompoundVisionV2() {
       <div className="flex justify-center mr-2 -mt-2">
         <img src="/CompoundVision_logo.png" className="scale-[0.7]" />
       </div>
-      <div className="relative mt-10">
-        {/* Form: */}
-        <motion.div
-          className="absolute left-1/2"
-          initial={{ y: 0, x: "-50%" }}
-          animate={{ y: inputFormData !== null ? 600 : 0, x: "-50%" }}
-          transition={{ type: "easeInOut", duration: 1.4 }}
-        >
-          <CompoundInterestForm />
-        </motion.div>
 
+      <div className="relative left-1/2 transform -translate-x-1/2 w-fit h-fit mt-10">
         {/* Chart: */}
-        {inputFormData && (
+        <div className="relative left-1/2 transform -translate-x-1/2 w-fit">
           <motion.div
-            className="absolute left-1/2 transform -translate-x-1/2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{
+              height: inputFormData !== null ? "auto" : 0,
+              opacity: inputFormData !== null ? 1 : 0,
+            }}
             transition={{ duration: 1, ease: "easeInOut" }}
           >
-            <CompoundInterestChart />
+            {inputFormData && <CompoundInterestChart />}
           </motion.div>
-        )}
+        </div>
+
+        {/* Form: */}
+        {/* NOTE: The padding bottom of the div should be the same as the y in animate when inputFormData is not null */}
+        <div className="relative left-1/2 transform -translate-x-1/2 w-fit pb-[90px]">
+          <motion.div
+            initial={{ y: 0 }}
+            animate={{ y: inputFormData !== null ? 90 : 0 }}
+            transition={{ type: "easeInOut", duration: 1.4 }}
+          >
+            <CompoundInterestForm />
+          </motion.div>
+        </div>
       </div>
 
-      <div className="border border-white h-10 w-screen">Hello</div>
+      <div className="border border-white h-10 w-screen mt-20">Hello</div>
 
       <SlidingQuote />
     </main>
