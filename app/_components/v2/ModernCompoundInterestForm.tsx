@@ -6,7 +6,7 @@ import { useCompoundInterestForm } from "../../_context/CompoundInterestFormCont
 import { InputFormData } from "../../_types";
 import { useState } from "react";
 
-export default function CompoundInterestForm() {
+export default function ModernCompoundInterestForm() {
   const { setInputFormData } = useCompoundInterestForm();
 
   const [optionals, setOptionals] = useState(false);
@@ -75,7 +75,7 @@ export default function CompoundInterestForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmitCompoundInterestForm)}
-      className="flex w-fit bg-[#101010] rounded-md pt-5 px-14 bg-opacity-80"
+      className="w-fit px-16 pt-10 pb-7 bg-[#101010] rounded-md flex flex-col items-center bg-opacity-70"
     >
       <ul className="flex flex-col gap-y-2">
         <li className="flex flex-col items-center">
@@ -84,6 +84,7 @@ export default function CompoundInterestForm() {
             {...fields.initialAmount}
             defaultValue={10000}
             className="rounded-lg p-2 text-white bg-[#323546] outline-none"
+            autoComplete="off"
           />
           {errors.initialAmount && (
             <p className="text-sm italic text-red-500">
@@ -97,6 +98,7 @@ export default function CompoundInterestForm() {
             {...fields.years}
             defaultValue={15}
             className="rounded-lg p-2 text-white bg-[#323546] outline-none"
+            autoComplete="off"
           />
           {errors.years && (
             <p className="text-sm italic text-red-500">
@@ -110,6 +112,7 @@ export default function CompoundInterestForm() {
             {...fields.estimatedInterestRate}
             defaultValue={8}
             className="rounded-lg p-2 text-white bg-[#323546] outline-none"
+            autoComplete="off"
           />
           {errors.estimatedInterestRate && (
             <p className="text-sm italic text-red-500">
@@ -117,110 +120,13 @@ export default function CompoundInterestForm() {
             </p>
           )}
         </li>
-        {/* Optional input fields */}
-        <li className="overflow-hidden mt-5 pt-5 px-1">
-          <motion.div
-            initial={false}
-            animate={optionals ? "open" : "closed"}
-            variants={optionalVariants}
-          >
-            <ul className="flex flex-col gap-y-2">
-              <li className="flex flex-col items-center">
-                <label className="font-medium mb-2">
-                  Annual inflation rate:
-                </label>
-                <input
-                  {...fields.annualInflationRate}
-                  className="rounded-lg p-2 text-white bg-[#323546] outline-none"
-                />
-                {errors.annualInflationRate && (
-                  <p className="text-sm italic text-red-500">
-                    {errors.annualInflationRate.message?.toString()}
-                  </p>
-                )}
-              </li>
-              <li className="flex flex-col items-center">
-                <label className="font-medium mb-2">Monthly deposit:</label>
-                <input
-                  {...fields.monthlyDeposit}
-                  className="rounded-lg p-2 text-white bg-[#323546] outline-none"
-                />
-                {errors.monthlyDeposit && (
-                  <p className="text-sm italic text-red-500">
-                    {errors.monthlyDeposit.message?.toString()}
-                  </p>
-                )}
-              </li>
-              <li className="flex flex-col items-center">
-                <label className="font-medium mb-2">
-                  Deposit increase rate:
-                </label>
-                <input
-                  {...fields.monthlyDepositIncreaseRate}
-                  className="rounded-lg p-2 text-white bg-[#323546] outline-none"
-                />
-                {errors.monthlyDepositIncreaseRate && (
-                  <p className="text-sm italic text-red-500">
-                    {errors.monthlyDepositIncreaseRate.message?.toString()}
-                  </p>
-                )}
-              </li>
-              <li className="flex flex-col items-center mb-8">
-                <label className="font-medium mb-2">Age:</label>
-                <input
-                  {...fields.age}
-                  className="rounded-lg p-2 text-white bg-[#323546] outline-none"
-                />
-                {errors.age && (
-                  <p className="text-sm italic text-red-500">
-                    {errors.age.message?.toString()}
-                  </p>
-                )}
-              </li>
-            </ul>
-          </motion.div>
-        </li>
       </ul>
-      <div className="ms-14 flex flex-col items-center">
-        <button
-          type="submit"
-          className="bg-green-800 hover:bg-green-600 rounded-lg p-2 mt-[72px]"
-        >
-          Calculate
-        </button>
-        <p className="mt-12">Advanced:</p>
-        <motion.div
-          animate={{ rotate: optionals ? 90 : 0 }}
-          transition={{ type: "linear", duration: 0.1 }}
-        >
-          <button
-            className="mt-2"
-            type="button"
-            onClick={() => setOptionals(!optionals)}
-          >
-            <svg
-              viewBox="0 0 1024 1024"
-              className="icon h-9 w-9 rounded-md p-0.5 hover:bg-[#323546] hover:bg-opacity-80"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="#000000"
-            >
-              <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-              <g
-                id="SVGRepo_tracerCarrier"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              ></g>
-              <g id="SVGRepo_iconCarrier">
-                <path
-                  d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z"
-                  fill="#ffffff"
-                ></path>
-              </g>
-            </svg>
-          </button>
-        </motion.div>
-      </div>
+      <button
+        type="submit"
+        className="bg-sky-800 hover:bg-sky-600 rounded-lg py-2 px-4 mt-10"
+      >
+        Calculate
+      </button>
     </form>
   );
 }

@@ -6,7 +6,7 @@ import { useCompoundInterestForm } from "../../_context/CompoundInterestFormCont
 import { InputFormData } from "../../_types";
 import { useState } from "react";
 
-export default function CompoundInterestForm() {
+export default function OldCompoundInterestForm() {
   const { setInputFormData } = useCompoundInterestForm();
 
   const [optionals, setOptionals] = useState(false);
@@ -75,7 +75,7 @@ export default function CompoundInterestForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmitCompoundInterestForm)}
-      className="flex w-fit bg-[#101010] rounded-md pt-5 px-14 bg-opacity-80"
+      className="flex w-fit border-gray-400 border rounded-lg pt-5 pb-8 px-14"
     >
       <ul className="flex flex-col gap-y-2">
         <li className="flex flex-col items-center">
@@ -83,7 +83,7 @@ export default function CompoundInterestForm() {
           <input
             {...fields.initialAmount}
             defaultValue={10000}
-            className="rounded-lg p-2 text-white bg-[#323546] outline-none"
+            className="rounded-lg p-2 text-white bg-[#323546] opacity-80"
           />
           {errors.initialAmount && (
             <p className="text-sm italic text-red-500">
@@ -96,7 +96,7 @@ export default function CompoundInterestForm() {
           <input
             {...fields.years}
             defaultValue={15}
-            className="rounded-lg p-2 text-white bg-[#323546] outline-none"
+            className="rounded-lg p-2 text-white bg-[#323546] opacity-90"
           />
           {errors.years && (
             <p className="text-sm italic text-red-500">
@@ -109,7 +109,7 @@ export default function CompoundInterestForm() {
           <input
             {...fields.estimatedInterestRate}
             defaultValue={8}
-            className="rounded-lg p-2 text-white bg-[#323546] outline-none"
+            className="rounded-lg p-2 text-white bg-[#323546] opacity-80"
           />
           {errors.estimatedInterestRate && (
             <p className="text-sm italic text-red-500">
@@ -118,7 +118,7 @@ export default function CompoundInterestForm() {
           )}
         </li>
         {/* Optional input fields */}
-        <li className="overflow-hidden mt-5 pt-5 px-1">
+        <li className="overflow-hidden mt-5 pt-5 border-t px-1 pb-1">
           <motion.div
             initial={false}
             animate={optionals ? "open" : "closed"}
@@ -131,7 +131,7 @@ export default function CompoundInterestForm() {
                 </label>
                 <input
                   {...fields.annualInflationRate}
-                  className="rounded-lg p-2 text-white bg-[#323546] outline-none"
+                  className="rounded-lg p-2 text-white bg-[#323546] opacity-80"
                 />
                 {errors.annualInflationRate && (
                   <p className="text-sm italic text-red-500">
@@ -143,7 +143,7 @@ export default function CompoundInterestForm() {
                 <label className="font-medium mb-2">Monthly deposit:</label>
                 <input
                   {...fields.monthlyDeposit}
-                  className="rounded-lg p-2 text-white bg-[#323546] outline-none"
+                  className="rounded-lg p-2 text-white bg-[#323546] opacity-80"
                 />
                 {errors.monthlyDeposit && (
                   <p className="text-sm italic text-red-500">
@@ -157,7 +157,7 @@ export default function CompoundInterestForm() {
                 </label>
                 <input
                   {...fields.monthlyDepositIncreaseRate}
-                  className="rounded-lg p-2 text-white bg-[#323546] outline-none"
+                  className="rounded-lg p-2 text-white bg-[#323546] opacity-80"
                 />
                 {errors.monthlyDepositIncreaseRate && (
                   <p className="text-sm italic text-red-500">
@@ -165,11 +165,11 @@ export default function CompoundInterestForm() {
                   </p>
                 )}
               </li>
-              <li className="flex flex-col items-center mb-8">
+              <li className="flex flex-col items-center">
                 <label className="font-medium mb-2">Age:</label>
                 <input
                   {...fields.age}
-                  className="rounded-lg p-2 text-white bg-[#323546] outline-none"
+                  className="rounded-lg p-2 text-white bg-[#323546] opacity-80"
                 />
                 {errors.age && (
                   <p className="text-sm italic text-red-500">
@@ -184,11 +184,11 @@ export default function CompoundInterestForm() {
       <div className="ms-14 flex flex-col items-center">
         <button
           type="submit"
-          className="bg-green-800 hover:bg-green-600 rounded-lg p-2 mt-[72px]"
+          className="bg-sky-800 hover:bg-sky-600 rounded-lg p-2 mt-[72px]"
         >
           Calculate
         </button>
-        <p className="mt-12">Advanced:</p>
+        <p className="mt-12">Optional:</p>
         <motion.div
           animate={{ rotate: optionals ? 90 : 0 }}
           transition={{ type: "linear", duration: 0.1 }}
@@ -200,7 +200,7 @@ export default function CompoundInterestForm() {
           >
             <svg
               viewBox="0 0 1024 1024"
-              className="icon h-9 w-9 rounded-md p-0.5 hover:bg-[#323546] hover:bg-opacity-80"
+              className="icon h-9 w-9 rounded-md p-0.5 hover:bg-gray-600 hover:bg-opacity-70"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
               fill="#000000"

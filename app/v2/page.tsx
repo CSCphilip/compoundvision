@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 
 import CompoundInterestChart from "../_components/v2/CompoundInterestChart";
-import CompoundInterestForm from "../_components/v2/CompoundInterestForm";
 import { useCompoundInterestForm } from "../_context/CompoundInterestFormContext";
+import CompoundInterestForm2 from "../_components/v2/CompoundInterestForm";
 
 export default function CompoundVisionV2() {
   const { inputFormData } = useCompoundInterestForm();
@@ -38,12 +38,12 @@ export default function CompoundVisionV2() {
             animate={{ y: inputFormData !== null ? 90 : 0 }}
             transition={{ type: "easeInOut", duration: 1.4 }}
           >
-            <CompoundInterestForm />
+            <CompoundInterestForm2 />
           </motion.div>
         </div>
       </div>
 
-      <div className="border border-white h-10 w-screen mt-20">Hello</div>
+      {/* <div className="border border-white h-10 w-screen">Hello</div> */}
 
       <SlidingQuote />
     </main>
