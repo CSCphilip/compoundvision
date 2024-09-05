@@ -40,8 +40,8 @@ export default function CompoundInterestChart() {
   return (
     <div className="ms-12">
       <AreaChart
-        width={1000}
-        height={500}
+        width={1100} // Old: 1000
+        height={550} // Old: 500
         data={compoundInterestData}
         margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
         className="border-l-2 border-l-[#363a41]"

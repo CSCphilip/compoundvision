@@ -3,7 +3,7 @@ export default function InformationSection() {
     <div className="flex flex-col items-center">
       {/* NOTE: The following text paragraph could be some exotic color like text-teal-200 */}
 
-      <p className="w-[715px] text-center text-xl text-neutral-200">
+      <p className="w-[715px] text-center text-xl text-neutral-200 mt-[30px]">
         CompoundVision combines the concept of compound interest with
         interactive visualization, demonstrating the powerful impact of this
         financial principle. Compound interest is like a snowball that grows
