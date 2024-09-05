@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function InformationSection() {
   return (
     <div className="flex flex-col items-center">
@@ -16,20 +18,12 @@ export default function InformationSection() {
         secure and prosperous future.
       </p>
 
-      {/* <Link>Read more</Link> */}
-
-      {/* TODO: More detailed description of compound interest in compared to the above. */}
-      <p></p>
-
-      {/* TODO: More detailed description of the graph and this calculator and fields in the form. */}
-      <p></p>
-
-      {/* TODO: Historical stats with reference. Things like average return on stock market,
-       the chance of positive return, annual inflation rate  */}
-      <div></div>
-
-      {/* TODO: short facts related to compound interest and investing */}
-      <div></div>
+      <Link
+        href="/v2/information"
+        className="mt-20 text-lg font-medium hover:text-lime-200 border rounded-md px-20 py-4"
+      >
+        Read more
+      </Link>
     </div>
   );
 }

@@ -56,10 +56,10 @@ export default function CompoundVisionV2() {
 
       {/* To always push the link to the bottom of the content of the page  */}
       <div className="grow" />
-      <div className="flex justify-center mt-16">
+      <div className="flex justify-center mt-52">
         <Link
-          href="/about"
-          className="pb-4 pt-3 hover:rounded-t-md px-56 hover:bg-slate-900 hover:bg-opacity-75"
+          href="/v2/about"
+          className="pb-4 pt-3 hover:rounded-t-xl px-56 hover:bg-slate-900 hover:bg-opacity-85"
         >
           About this project
         </Link>
