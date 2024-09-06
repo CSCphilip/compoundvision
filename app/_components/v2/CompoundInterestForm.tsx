@@ -89,6 +89,7 @@ export default function CompoundInterestForm() {
               {...fields.initialAmount}
               defaultValue={10000}
               className="rounded-e-lg p-2 text-white bg-[#323546] outline-none w-full"
+              tabIndex={1}
             />
           </div>
           {errors.initialAmount && (
@@ -103,6 +104,7 @@ export default function CompoundInterestForm() {
             {...fields.years}
             defaultValue={15}
             className="rounded-lg p-2 text-white bg-[#323546] outline-none"
+            tabIndex={2}
           />
           {errors.years && (
             <p className="text-sm italic text-red-500">
@@ -117,6 +119,7 @@ export default function CompoundInterestForm() {
               {...fields.estimatedInterestRate}
               defaultValue={8}
               className="rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full"
+              tabIndex={3}
             />
             <span className="inline-flex items-center justify-center ps-[10px] pe-3 text-sm rounded-e-lg bg-gray-600 text-gray-400">
               %
@@ -211,6 +214,7 @@ export default function CompoundInterestForm() {
         <button
           type="submit"
           className="bg-green-800 hover:bg-green-600 rounded-lg p-2 mt-[72px]"
+          tabIndex={4}
         >
           Calculate
         </button>
@@ -223,6 +227,7 @@ export default function CompoundInterestForm() {
             className="mt-2"
             type="button"
             onClick={() => setOptionals(!optionals)}
+            tabIndex={5}
           >
             <svg
               viewBox="0 0 1024 1024"
