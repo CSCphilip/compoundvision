@@ -76,15 +76,21 @@ export default function CompoundInterestForm() {
     <form
       onSubmit={handleSubmit(onSubmitCompoundInterestForm)}
       className="flex w-fit bg-[#101010] rounded-md pt-5 px-14 bg-opacity-80"
+      autoComplete="off"
     >
-      <ul className="flex flex-col gap-y-2">
+      <ul className="flex flex-col gap-y-2 w-[235px] mx-4">
         <li className="flex flex-col items-center">
           <label className="font-medium mb-2">Initial amount:</label>
-          <input
-            {...fields.initialAmount}
-            defaultValue={10000}
-            className="rounded-lg p-2 text-white bg-[#323546] outline-none"
-          />
+          <div className="flex justify-center">
+            <span className="inline-flex items-center justify-center ps-3 pe-[10px] text-sm rounded-s-lg bg-gray-600 text-gray-400">
+              $
+            </span>
+            <input
+              {...fields.initialAmount}
+              defaultValue={10000}
+              className="rounded-e-lg p-2 text-white bg-[#323546] outline-none w-full"
+            />
+          </div>
           {errors.initialAmount && (
             <p className="text-sm italic text-red-500">
               {errors.initialAmount.message?.toString()}
@@ -106,11 +112,16 @@ export default function CompoundInterestForm() {
         </li>
         <li className="flex flex-col items-center">
           <label className="font-medium mb-2">Estimated interest rate:</label>
-          <input
-            {...fields.estimatedInterestRate}
-            defaultValue={8}
-            className="rounded-lg p-2 text-white bg-[#323546] outline-none"
-          />
+          <div className="flex justify-center">
+            <input
+              {...fields.estimatedInterestRate}
+              defaultValue={8}
+              className="rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full"
+            />
+            <span className="inline-flex items-center justify-center ps-[10px] pe-3 text-sm rounded-e-lg bg-gray-600 text-gray-400">
+              %
+            </span>
+          </div>
           {errors.estimatedInterestRate && (
             <p className="text-sm italic text-red-500">
               {errors.estimatedInterestRate.message?.toString()}
@@ -118,7 +129,7 @@ export default function CompoundInterestForm() {
           )}
         </li>
         {/* Optional input fields */}
-        <li className="overflow-hidden mt-5 pt-5 px-1">
+        <li className="overflow-hidden mt-5 pt-5">
           <motion.div
             initial={false}
             animate={optionals ? "open" : "closed"}
@@ -129,10 +140,15 @@ export default function CompoundInterestForm() {
                 <label className="font-medium mb-2">
                   Annual inflation rate:
                 </label>
-                <input
-                  {...fields.annualInflationRate}
-                  className="rounded-lg p-2 text-white bg-[#323546] outline-none"
-                />
+                <div className="flex justify-center">
+                  <input
+                    {...fields.annualInflationRate}
+                    className="rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full"
+                  />
+                  <span className="inline-flex items-center justify-center ps-[10px] pe-3 text-sm rounded-e-lg bg-gray-600 text-gray-400">
+                    %
+                  </span>
+                </div>
                 {errors.annualInflationRate && (
                   <p className="text-sm italic text-red-500">
                     {errors.annualInflationRate.message?.toString()}
@@ -141,10 +157,15 @@ export default function CompoundInterestForm() {
               </li>
               <li className="flex flex-col items-center">
                 <label className="font-medium mb-2">Monthly deposit:</label>
-                <input
-                  {...fields.monthlyDeposit}
-                  className="rounded-lg p-2 text-white bg-[#323546] outline-none"
-                />
+                <div className="flex justify-center">
+                  <span className="inline-flex items-center justify-center ps-3 pe-[10px] text-sm rounded-s-lg bg-gray-600 text-gray-400">
+                    $
+                  </span>
+                  <input
+                    {...fields.monthlyDeposit}
+                    className="rounded-e-lg p-2 text-white bg-[#323546] outline-none w-full"
+                  />
+                </div>
                 {errors.monthlyDeposit && (
                   <p className="text-sm italic text-red-500">
                     {errors.monthlyDeposit.message?.toString()}
@@ -155,10 +176,15 @@ export default function CompoundInterestForm() {
                 <label className="font-medium mb-2">
                   Deposit increase rate:
                 </label>
-                <input
-                  {...fields.monthlyDepositIncreaseRate}
-                  className="rounded-lg p-2 text-white bg-[#323546] outline-none"
-                />
+                <div className="flex justify-center">
+                  <input
+                    {...fields.monthlyDepositIncreaseRate}
+                    className="rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full"
+                  />
+                  <span className="inline-flex items-center justify-center ps-[10px] pe-3 text-sm rounded-e-lg bg-gray-600 text-gray-400">
+                    %
+                  </span>
+                </div>
                 {errors.monthlyDepositIncreaseRate && (
                   <p className="text-sm italic text-red-500">
                     {errors.monthlyDepositIncreaseRate.message?.toString()}

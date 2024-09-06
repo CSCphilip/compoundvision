@@ -38,12 +38,12 @@ export default function CompoundInterestChart() {
   if (!isMounted) return null;
 
   return (
-    <div className="ms-12">
+    <div className="ms-14">
       <AreaChart
-        width={1100} // Old: 1000
+        width={1105} // The 5 is because of the margin right // Old: 1000
         height={550} // Old: 500
         data={compoundInterestData}
-        margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+        margin={{ top: 0, right: 5, left: 0, bottom: 0 }}
         className="border-l-2 border-l-[#363a41]"
       >
         <defs>
@@ -140,28 +140,25 @@ function CustomTooltip({ active, payload, label }: any) {
 
   const formatAmount = (num: number): string => {
     return new Intl.NumberFormat("en-US", {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-      useGrouping: true,
-    })
-      .format(num)
-      .replace(/,/g, " ");
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(num);
   };
 
   if (active && payload && payload.length) {
     return (
       <div className="bg-gray-700 p-2 text-sm rounded-lg">
         <p className="font-bold text-base">{label}</p>
-        <p className="">{`Nominal amount: ${formatAmount(
+        <p className="">{`Nominal amount: $${formatAmount(
           payload[0].value
         )}`}</p>
         {payload[2] ? (
           <>
-            <p>{`Real amount: ${formatAmount(payload[1].value)}`}</p>
-            <p>{`Capital inputs: ${formatAmount(payload[2].value)}`}</p>
+            <p>{`Real amount: $${formatAmount(payload[1].value)}`}</p>
+            <p>{`Capital inputs: $${formatAmount(payload[2].value)}`}</p>
           </>
         ) : (
-          <p>{`Capital inputs: ${formatAmount(payload[1].value)}`}</p>
+          <p>{`Capital inputs: $${formatAmount(payload[1].value)}`}</p>
         )}
         {age && (
           <p>{`Age: ${Number(age) + Number(label) - Number(currentYear)}`}</p>
@@ -185,7 +182,7 @@ function abbrNum(number: number, decPlaces: number) {
   // Enumerate number abbreviations
   var abbrev = ["k", "m", "b", "t"];
 
-  let res: string = number.toString();
+  let res: string = "$" + number.toString();
 
   // Go through the array backwards, so we do the largest first
   for (var i = abbrev.length - 1; i >= 0; i--) {
@@ -205,7 +202,7 @@ function abbrNum(number: number, decPlaces: number) {
       }
 
       // Add the letter for the abbreviation
-      res = number + abbrev[i];
+      res = "$" + number + abbrev[i];
 
       // We are done... stop
       break;
