@@ -80,7 +80,7 @@ export default function CompoundInterestForm() {
     >
       <ul className="flex flex-col gap-y-2 w-[235px] mx-4">
         <li className="flex flex-col items-center">
-          <label className="font-medium mb-2">Initial amount:</label>
+          <label className="font-medium mb-2 text-white">Initial amount:</label>
           <div className="flex justify-center">
             <span className="inline-flex items-center justify-center ps-3 pe-[10px] text-sm rounded-s-lg bg-gray-600 text-gray-400">
               $
@@ -99,11 +99,11 @@ export default function CompoundInterestForm() {
           )}
         </li>
         <li className="flex flex-col items-center">
-          <label className="font-medium mb-2">Years:</label>
+          <label className="font-medium mb-2 text-white">Years:</label>
           <input
             {...fields.years}
             defaultValue={15}
-            className="rounded-lg p-2 text-white bg-[#323546] outline-none"
+            className="rounded-lg p-2 text-white bg-[#323546] outline-none w-full"
             tabIndex={2}
           />
           {errors.years && (
@@ -113,7 +113,9 @@ export default function CompoundInterestForm() {
           )}
         </li>
         <li className="flex flex-col items-center">
-          <label className="font-medium mb-2">Estimated interest rate:</label>
+          <label className="font-medium mb-2 text-white">
+            Estimated interest rate:
+          </label>
           <div className="flex justify-center">
             <input
               {...fields.estimatedInterestRate}
@@ -140,7 +142,7 @@ export default function CompoundInterestForm() {
           >
             <ul className="flex flex-col gap-y-2">
               <li className="flex flex-col items-center">
-                <label className="font-medium mb-2">
+                <label className="font-medium mb-2 text-white">
                   Annual inflation rate:
                 </label>
                 <div className="flex justify-center">
@@ -159,7 +161,9 @@ export default function CompoundInterestForm() {
                 )}
               </li>
               <li className="flex flex-col items-center">
-                <label className="font-medium mb-2">Monthly deposit:</label>
+                <label className="font-medium mb-2 text-white">
+                  Monthly deposit:
+                </label>
                 <div className="flex justify-center">
                   <span className="inline-flex items-center justify-center ps-3 pe-[10px] text-sm rounded-s-lg bg-gray-600 text-gray-400">
                     $
@@ -176,7 +180,7 @@ export default function CompoundInterestForm() {
                 )}
               </li>
               <li className="flex flex-col items-center">
-                <label className="font-medium mb-2">
+                <label className="font-medium mb-2 text-white">
                   Deposit increase rate:
                 </label>
                 <div className="flex justify-center">
@@ -195,10 +199,10 @@ export default function CompoundInterestForm() {
                 )}
               </li>
               <li className="flex flex-col items-center mb-8">
-                <label className="font-medium mb-2">Age:</label>
+                <label className="font-medium mb-2 text-white">Age:</label>
                 <input
                   {...fields.age}
-                  className="rounded-lg p-2 text-white bg-[#323546] outline-none"
+                  className="rounded-lg p-2 text-white bg-[#323546] outline-none w-full"
                 />
                 {errors.age && (
                   <p className="text-sm italic text-red-500">
@@ -213,12 +217,12 @@ export default function CompoundInterestForm() {
       <div className="ms-14 flex flex-col items-center">
         <button
           type="submit"
-          className="bg-green-800 hover:bg-green-600 rounded-lg p-2 mt-[72px]"
+          className="bg-green-800 hover:bg-green-600 rounded-lg p-2 mt-[72px] text-white"
           tabIndex={4}
         >
           Calculate
         </button>
-        <p className="mt-12">Advanced:</p>
+        <p className="mt-12 text-white">Advanced:</p>
         <motion.div
           animate={{ rotate: optionals ? 90 : 0 }}
           transition={{ type: "linear", duration: 0.1 }}

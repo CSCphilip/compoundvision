@@ -20,7 +20,7 @@ export default function InformationSection() {
 
       <Link
         href="/v2/information"
-        className="mt-20 text-lg font-medium hover:text-lime-200 border rounded-md px-20 py-4"
+        className="mt-20 text-lg font-medium hover:text-lime-200 border rounded-md px-20 py-4 text-white"
       >
         Read more
       </Link>

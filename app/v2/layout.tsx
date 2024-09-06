@@ -2,6 +2,8 @@ import { CompoundInterestFormProvider } from "../_context/CompoundInterestFormCo
 
 export default function V2Layout({ children }: { children: React.ReactNode }) {
   return (
-    <CompoundInterestFormProvider>{children}</CompoundInterestFormProvider>
+    <div className="overflow-x-hidden">
+      <CompoundInterestFormProvider>{children}</CompoundInterestFormProvider>
+    </div>
   );
 }

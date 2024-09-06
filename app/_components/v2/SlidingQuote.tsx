@@ -30,7 +30,7 @@ export default function SlidingQuote() {
           </svg>
         </div>
 
-        <div className="">
+        <div className="text-white">
           <p className="text-[15px]">
             <i>
               "Compound interest is the eighth wonder of the world. He who

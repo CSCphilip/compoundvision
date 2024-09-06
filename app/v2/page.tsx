@@ -59,7 +59,7 @@ export default function CompoundVisionV2() {
       <div className="flex justify-center mt-48">
         <Link
           href="/v2/about"
-          className="pb-4 pt-3 hover:rounded-t-xl px-56 hover:bg-slate-900 hover:bg-opacity-85"
+          className="pb-4 pt-3 hover:rounded-t-xl px-56 hover:bg-slate-900 hover:bg-opacity-85 text-white"
         >
           About this project
         </Link>
