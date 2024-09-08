@@ -3,14 +3,15 @@
 import { motion } from "framer-motion";
 
 import CompoundInterestChart from "../_components/v2/CompoundInterestChart";
-import { useCompoundInterestForm } from "../_context/CompoundInterestFormContext";
-import CompoundInterestForm2 from "../_components/v2/CompoundInterestForm";
+import { useCompoundInterest } from "../_context/CompoundInterestFormContext";
+import CompoundInterestForm from "../_components/v2/CompoundInterestForm";
 import SlidingQuote from "../_components/v2/SlidingQuote";
 import Link from "next/link";
 import InformationSection from "../_components/v2/InformationSection";
+import FutureValueDisplay from "../_components/v2/FutureValueDisplay";
 
 export default function CompoundVisionV2() {
-  const { inputFormData } = useCompoundInterestForm();
+  const { inputFormData } = useCompoundInterest();
 
   return (
     <main className="flex flex-col bg-[#0d1421] w-screen min-h-screen overflow-x-hidden">
@@ -19,7 +20,7 @@ export default function CompoundVisionV2() {
       </div>
 
       <div className="relative left-1/2 transform -translate-x-1/2 w-fit h-fit mt-10">
-        {/* Chart: */}
+        {/* Chart and FV: */}
         <div className="relative left-1/2 transform -translate-x-1/2 w-fit">
           <motion.div
             initial={{ height: 0, opacity: 0 }}
@@ -29,22 +30,26 @@ export default function CompoundVisionV2() {
             }}
             transition={{ duration: 1, ease: "easeInOut" }}
           >
-            {inputFormData && <CompoundInterestChart />}
+            {inputFormData && (
+              <>
+                <CompoundInterestChart />
+                <FutureValueDisplay />
+              </>
+            )}
           </motion.div>
         </div>
 
         {/* Form: */}
-        {/* NOTE: The padding bottom of the div should be the same as the y in animate when inputFormData is not null */}
         <div className="relative left-1/2 transform -translate-x-1/2 w-fit pb-[90px]">
           <motion.div
             initial={{ y: 0 }}
             animate={{
-              y: inputFormData !== null ? 90 : 0,
-              marginBottom: inputFormData !== null ? 100 : 0,
+              y: inputFormData !== null ? 30 : 0,
+              marginBottom: inputFormData !== null ? 40 : 0,
             }}
             transition={{ type: "easeInOut", duration: 1.4 }}
           >
-            <CompoundInterestForm2 />
+            <CompoundInterestForm />
           </motion.div>
         </div>
       </div>

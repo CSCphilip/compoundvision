@@ -1,6 +1,6 @@
 "use client";
 
-import { useCompoundInterestForm } from "@/app/_context/CompoundInterestFormContext";
+import { useCompoundInterest } from "@/app/_context/CompoundInterestFormContext";
 import { InputFormData, CompoundInterestData } from "@/app/_types";
 import { useEffect, useState } from "react";
 import {
@@ -13,19 +13,16 @@ import {
   ReferenceLine,
 } from "recharts";
 
-interface CompoundInterestChartProps {
-  inputFormData: InputFormData;
-}
-
 export default function CompoundInterestChart() {
-  const { inputFormData } = useCompoundInterestForm();
-  const [compoundInterestData, setCompoundInterestData] = useState<
-    CompoundInterestData[]
-  >([]);
+  const { inputFormData, compoundInterestData, setCompoundInterestData } =
+    useCompoundInterest();
 
   useEffect(() => {
     const calculatedCompoundedInterest = calcCompoundInterest(inputFormData!);
+
+    console.log(JSON.stringify(inputFormData));
     console.log(calculatedCompoundedInterest);
+
     setCompoundInterestData(calculatedCompoundedInterest);
   }, [inputFormData]);
 
@@ -76,7 +73,7 @@ export default function CompoundInterestChart() {
 
         <Tooltip animationDuration={500} content={<CustomTooltip />} />
 
-        {inputFormData!.monthlyDeposit ? (
+        {inputFormData!.monthlyContribution ? (
           <>
             <Area
               type="monotone"
@@ -133,7 +130,7 @@ export default function CompoundInterestChart() {
 }
 
 function CustomTooltip({ active, payload, label }: any) {
-  const { inputFormData } = useCompoundInterestForm();
+  const { inputFormData } = useCompoundInterest();
 
   const age = inputFormData!.age;
   const currentYear = new Date().getFullYear();
@@ -224,24 +221,24 @@ function calcCompoundInterest(
     total: inputFormData.initialAmount,
     year: currentYear,
     interest: 0,
-    totalInflationAdjusted: isNaN(inputFormData.annualInflationRate!)
-      ? undefined
-      : inputFormData.initialAmount,
-    totalWithContributions: isNaN(inputFormData.monthlyDeposit!)
-      ? undefined
-      : inputFormData.initialAmount,
+    totalInflationAdjusted: inputFormData.annualInflationRate!
+      ? inputFormData.initialAmount
+      : undefined,
+    totalWithContributions: inputFormData.monthlyContribution!
+      ? inputFormData.initialAmount
+      : undefined,
     totalWithContributionsInflationAdjusted:
-      isNaN(inputFormData.monthlyDeposit!) ||
-      isNaN(inputFormData.annualInflationRate!)
-        ? undefined
-        : inputFormData.initialAmount,
+      inputFormData.monthlyContribution! && inputFormData.annualInflationRate!
+        ? inputFormData.initialAmount
+        : undefined,
     contributions: inputFormData.initialAmount,
   });
 
   const interestRate = inputFormData.estimatedInterestRate / 100;
 
-  const calcInflationAdjustment = !isNaN(inputFormData.annualInflationRate!);
-  const calcCompoundWithMonthlyDeposits = !isNaN(inputFormData.monthlyDeposit!);
+  const calcInflationAdjustment = inputFormData.annualInflationRate!;
+  const calcCompoundWithMonthlyContribution =
+    inputFormData.monthlyContribution!;
 
   let total = inputFormData.initialAmount;
   let contributions = total;
@@ -255,19 +252,23 @@ function calcCompoundInterest(
         total / Math.pow(1 + inputFormData.annualInflationRate! / 100, i);
     }
 
-    // Compound interest of monthly deposits with an annual period (not compounded every month)
+    // Compound interest of monthly contributions with an annual period (not compounded every month)
     // Formula based on: https://rikatillsammans.se/ranta-pa-ranta-formler-excels-slutvarde-och-min-kalkylator/
     let totalWithContributions: number | undefined = undefined;
     let totalWithContributionsInflationAdjusted: number | undefined = undefined;
-    if (calcCompoundWithMonthlyDeposits) {
-      const currentMonthlyDeposits = inputFormData.monthlyDepositIncreaseRate
-        ? inputFormData.monthlyDeposit! *
-          Math.pow(1 + inputFormData.monthlyDepositIncreaseRate / 100, i - 1)
-        : inputFormData.monthlyDeposit!;
-      contributions += currentMonthlyDeposits * 12;
+    if (calcCompoundWithMonthlyContribution) {
+      const currentMonthlyContribution =
+        inputFormData.annualContributionIncreaseRate
+          ? inputFormData.monthlyContribution! *
+            Math.pow(
+              1 + inputFormData.annualContributionIncreaseRate / 100,
+              i - 1
+            )
+          : inputFormData.monthlyContribution!;
+      contributions += currentMonthlyContribution * 12;
       totalWithContributions = total;
       totalWithContributions +=
-        currentMonthlyDeposits *
+        currentMonthlyContribution *
         12 *
         ((Math.pow(1 + interestRate, i) - 1) / interestRate);
 

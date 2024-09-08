@@ -2,37 +2,47 @@
 
 import { createContext, ReactNode, useContext, useState } from "react";
 
-import { InputFormData } from "../_types";
+import { CompoundInterestData, InputFormData } from "../_types";
 
-type CompoundInterestFormProviderProps = {
+type CompoundInterestProviderProps = {
   children: ReactNode;
 };
 
-type CompoundInterestFormContext = {
+type CompoundInterestContext = {
   inputFormData: InputFormData | null;
   setInputFormData: (inputFormData: InputFormData) => void;
+  compoundInterestData: CompoundInterestData[];
+  setCompoundInterestData: (
+    compoundInterestData: CompoundInterestData[]
+  ) => void;
 };
 
-const CompoundInterestFormContext = createContext(
-  {} as CompoundInterestFormContext
-);
+const CompoundInterestContext = createContext({} as CompoundInterestContext);
 
-export function useCompoundInterestForm() {
-  return useContext(CompoundInterestFormContext);
+export function useCompoundInterest() {
+  return useContext(CompoundInterestContext);
 }
 
-export function CompoundInterestFormProvider({
+export function CompoundInterestProvider({
   children,
-}: CompoundInterestFormProviderProps) {
+}: CompoundInterestProviderProps) {
   const [inputFormData, setInputFormData] = useState<InputFormData | null>(
     null
   );
+  const [compoundInterestData, setCompoundInterestData] = useState<
+    CompoundInterestData[]
+  >([]);
 
   return (
-    <CompoundInterestFormContext.Provider
-      value={{ inputFormData, setInputFormData }}
+    <CompoundInterestContext.Provider
+      value={{
+        inputFormData,
+        setInputFormData,
+        compoundInterestData,
+        setCompoundInterestData,
+      }}
     >
       {children}
-    </CompoundInterestFormContext.Provider>
+    </CompoundInterestContext.Provider>
   );
 }

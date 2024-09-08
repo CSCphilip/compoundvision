@@ -2,12 +2,12 @@
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { motion } from "framer-motion";
-import { useCompoundInterestForm } from "../../_context/CompoundInterestFormContext";
+import { useCompoundInterest } from "../../_context/CompoundInterestFormContext";
 import { InputFormData } from "../../_types";
 import { useState } from "react";
 
 export default function CompoundInterestForm() {
-  const { setInputFormData } = useCompoundInterestForm();
+  const { setInputFormData } = useCompoundInterest();
 
   const [optionals, setOptionals] = useState(false);
 
@@ -27,44 +27,53 @@ export default function CompoundInterestForm() {
       required: { value: true, message: "Field must be filled." },
       valueAsNumber: true,
       validate: (value) => !isNaN(value) || "Must be a valid number.",
-      min: { value: 1, message: "Amount must be greater than 0." },
+      min: { value: 1, message: "Amount must be at least 1." },
+      max: {
+        value: 1_000_000_000_000,
+        message: "Value must be 1 trillion or less.",
+      },
     }),
     years: register("years", {
       required: { value: true, message: "Field must be filled." },
       valueAsNumber: true,
       validate: (value) => !isNaN(value) || "Must be a valid number.",
-      min: { value: 1, message: "Value must be greater than 1." },
-      max: { value: 200, message: "Value must be less than 200." },
+      min: { value: 1, message: "Value must be at least 1." },
+      max: { value: 200, message: "Value must be 200 or less." },
     }),
     estimatedInterestRate: register("estimatedInterestRate", {
       required: { value: true, message: "Field must be filled." },
       valueAsNumber: true,
       validate: (value) => !isNaN(value) || "Must be a valid number.",
-      min: { value: 0, message: "Value must be greater than 0." },
-      max: { value: 500, message: "Value mest be less than 500." },
+      min: { value: 0, message: "Value must be at least 0." },
+      max: { value: 500, message: "Value must be 500 or less." },
+    }),
+    // Optional fields:
+    annualInflationRate: register("annualInflationRate", {
+      /* The following setValueAs is to differentiate "" from NaN when no input is given (default case). 
+      Without this the validate will complain when the input is empty as default. 
+      This leads to the form to not submit when the optional fields are empty. */
+      setValueAs: (value: string) => (value === "" ? 0 : Number(value)),
+      validate: (value) => !isNaN(value!) || "Must be a valid number.",
+      min: { value: 0, message: "Value must be at least 0." },
+      max: { value: 100, message: "Value must be 100 or less." },
+    }),
+    monthlyContribution: register("monthlyContribution", {
+      setValueAs: (value: string) => (value === "" ? 0 : Number(value)),
+      validate: (value) => !isNaN(value!) || "Must be a valid number.",
+      min: { value: 0, message: "Value must be at least 0." },
+      max: { value: 1_000_000, message: "Value must be 1 million or less." },
+    }),
+    annualContributionIncreaseRate: register("annualContributionIncreaseRate", {
+      setValueAs: (value: string) => (value === "" ? 0 : Number(value)),
+      validate: (value) => !isNaN(value!) || "Must be a valid number.",
+      min: { value: 0, message: "Value must be at least 0." },
+      max: { value: 1000, message: "Value must be 1000 or less." },
     }),
     age: register("age", {
-      validate: (value) =>
-        value === undefined || !isNaN(value) || "Must be a valid number.",
-      min: { value: 0, message: "Value must be greater than 0." },
-      max: { value: 200, message: "Value must be less than 200." },
-    }),
-    annualInflationRate: register("annualInflationRate", {
-      validate: (value) =>
-        value === undefined || !isNaN(value) || "Must be a valid number.",
-      min: { value: 0, message: "Value must be greater than 0." },
-      max: { value: 100, message: "Value must be less than 100." },
-    }),
-    monthlyDeposit: register("monthlyDeposit", {
-      validate: (value) =>
-        value === undefined || !isNaN(value) || "Must be a valid number.",
-      min: { value: 0, message: "Value must be greater than 0." },
-    }),
-    monthlyDepositIncreaseRate: register("monthlyDepositIncreaseRate", {
-      validate: (value) =>
-        value === undefined || !isNaN(value) || "Must be a valid number.",
-      min: { value: 0, message: "Value must be greater than 0." },
-      max: { value: 1000, message: "Value must be less than 1000." },
+      setValueAs: (value: string) => (value === "" ? 0 : Number(value)),
+      validate: (value) => !isNaN(value!) || "Must be a valid number.",
+      min: { value: 0, message: "Value must be at least 0." },
+      max: { value: 200, message: "Value must be 200 or less." },
     }),
   };
 
@@ -162,39 +171,39 @@ export default function CompoundInterestForm() {
               </li>
               <li className="flex flex-col items-center">
                 <label className="font-medium mb-2 text-white">
-                  Monthly deposit:
+                  Monthly contribution:
                 </label>
                 <div className="flex justify-center">
                   <span className="inline-flex items-center justify-center ps-3 pe-[10px] text-sm rounded-s-lg bg-gray-600 text-gray-400">
                     $
                   </span>
                   <input
-                    {...fields.monthlyDeposit}
+                    {...fields.monthlyContribution}
                     className="rounded-e-lg p-2 text-white bg-[#323546] outline-none w-full"
                   />
                 </div>
-                {errors.monthlyDeposit && (
+                {errors.monthlyContribution && (
                   <p className="text-sm italic text-red-500">
-                    {errors.monthlyDeposit.message?.toString()}
+                    {errors.monthlyContribution.message?.toString()}
                   </p>
                 )}
               </li>
               <li className="flex flex-col items-center">
                 <label className="font-medium mb-2 text-white">
-                  Deposit increase rate:
+                  Yearly contribution increase:
                 </label>
                 <div className="flex justify-center">
                   <input
-                    {...fields.monthlyDepositIncreaseRate}
+                    {...fields.annualContributionIncreaseRate}
                     className="rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full"
                   />
                   <span className="inline-flex items-center justify-center ps-[10px] pe-3 text-sm rounded-e-lg bg-gray-600 text-gray-400">
                     %
                   </span>
                 </div>
-                {errors.monthlyDepositIncreaseRate && (
+                {errors.annualContributionIncreaseRate && (
                   <p className="text-sm italic text-red-500">
-                    {errors.monthlyDepositIncreaseRate.message?.toString()}
+                    {errors.annualContributionIncreaseRate.message?.toString()}
                   </p>
                 )}
               </li>

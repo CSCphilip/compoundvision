@@ -4,8 +4,8 @@ export type InputFormData = {
   estimatedInterestRate: number;
   age?: number;
   annualInflationRate?: number;
-  monthlyDeposit?: number;
-  monthlyDepositIncreaseRate?: number;
+  monthlyContribution?: number;
+  annualContributionIncreaseRate?: number; // The increase rate per year for the monthly contributions
 };
 
 export type CompoundInterestData = {
@@ -14,12 +14,6 @@ export type CompoundInterestData = {
   interest: number;
   totalInflationAdjusted?: number;
   totalWithContributions?: number;
-  contributions?: number; // From monthly deposits (accumulated), initial + contributions
+  contributions?: number; // From monthly contributions (accumulated), initial + contributions
   totalWithContributionsInflationAdjusted?: number;
 };
-
-// total
-// total after inflation
-// initial + contributions
-// total + contributions
-// total + contributions after inflation
