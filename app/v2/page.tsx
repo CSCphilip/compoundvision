@@ -44,7 +44,7 @@ export default function CompoundVisionV2() {
           <motion.div
             initial={{ y: 0 }}
             animate={{
-              y: inputFormData !== null ? 30 : 0,
+              y: inputFormData !== null ? 20 : 0,
               marginBottom: inputFormData !== null ? 40 : 0,
             }}
             transition={{ type: "easeInOut", duration: 1.4 }}

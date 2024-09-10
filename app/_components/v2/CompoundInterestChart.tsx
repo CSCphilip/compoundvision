@@ -18,7 +18,9 @@ export default function CompoundInterestChart() {
     useCompoundInterest();
 
   useEffect(() => {
-    const calculatedCompoundedInterest = calcCompoundInterest(inputFormData!);
+    if (!inputFormData) return;
+
+    const calculatedCompoundedInterest = calcCompoundInterest(inputFormData);
 
     console.log(JSON.stringify(inputFormData));
     console.log(calculatedCompoundedInterest);
@@ -144,21 +146,48 @@ function CustomTooltip({ active, payload, label }: any) {
 
   if (active && payload && payload.length) {
     return (
-      <div className="bg-gray-700 p-2 text-sm rounded-lg">
-        <p className="font-bold text-base">{label}</p>
-        <p className="">{`Nominal amount: $${formatAmount(
-          payload[0].value
-        )}`}</p>
+      <div className="bg-gray-700 py-2 px-3 text-sm rounded-lg">
+        <p className="inline-flex items-center font-bold text-lg text-white">
+          {label}
+          {(age || age === 0) && (
+            <>
+              <p className="pt-[1px] ms-1.5 text-sm font-normal text-gray-300">{`Age: ${
+                Number(age) + Number(label) - Number(currentYear)
+              }`}</p>
+            </>
+          )}
+        </p>
+        <br />
+        <p className="inline-flex items-center text-white">
+          <span className="size-[10px] bg-[#15bf7f] rounded-full inline-block mr-[8px]" />
+          Nominal amount:
+          <span className="w-[16px]" />
+          <p className="text-white">${formatAmount(payload[0].value)}</p>
+        </p>
+        <br />
         {payload[2] ? (
           <>
-            <p>{`Real amount: $${formatAmount(payload[1].value)}`}</p>
-            <p>{`Capital inputs: $${formatAmount(payload[2].value)}`}</p>
+            <p className="inline-flex items-center mt-1 text-white">
+              <span className="size-[10px] bg-[#facc15] rounded-full inline-block mr-[8px]" />
+              Real amount:
+              <span className="w-[42px]" />
+              <p className="text-white">${formatAmount(payload[1].value)}</p>
+            </p>
+            <br />
+            <p className="inline-flex items-center mt-1 text-white">
+              <span className="size-[10px] bg-[#8884d8] rounded-full inline-block mr-[8px]" />
+              Capital inputs:
+              <span className="w-[33.5px]" />
+              <p className="text-white">${formatAmount(payload[2].value)}</p>
+            </p>
           </>
         ) : (
-          <p>{`Capital inputs: $${formatAmount(payload[1].value)}`}</p>
-        )}
-        {age && (
-          <p>{`Age: ${Number(age) + Number(label) - Number(currentYear)}`}</p>
+          <p className="inline-flex items-center mt-1 text-white">
+            <span className="size-[10px] bg-[#8884d8] rounded-full inline-block mr-[8px]" />
+            Capital inputs:
+            <span className="w-[33.5px]" />
+            <p className="text-white">${formatAmount(payload[1].value)}</p>
+          </p>
         )}
       </div>
     );
@@ -221,14 +250,14 @@ function calcCompoundInterest(
     total: inputFormData.initialAmount,
     year: currentYear,
     interest: 0,
-    totalInflationAdjusted: inputFormData.annualInflationRate!
+    totalInflationAdjusted: inputFormData.annualInflationRate
       ? inputFormData.initialAmount
       : undefined,
-    totalWithContributions: inputFormData.monthlyContribution!
+    totalWithContributions: inputFormData.monthlyContribution
       ? inputFormData.initialAmount
       : undefined,
     totalWithContributionsInflationAdjusted:
-      inputFormData.monthlyContribution! && inputFormData.annualInflationRate!
+      inputFormData.monthlyContribution && inputFormData.annualInflationRate
         ? inputFormData.initialAmount
         : undefined,
     contributions: inputFormData.initialAmount,
@@ -236,9 +265,8 @@ function calcCompoundInterest(
 
   const interestRate = inputFormData.estimatedInterestRate / 100;
 
-  const calcInflationAdjustment = inputFormData.annualInflationRate!;
-  const calcCompoundWithMonthlyContribution =
-    inputFormData.monthlyContribution!;
+  const calcInflationAdjustment = inputFormData.annualInflationRate;
+  const calcCompoundWithMonthlyContribution = inputFormData.monthlyContribution;
 
   let total = inputFormData.initialAmount;
   let contributions = total;

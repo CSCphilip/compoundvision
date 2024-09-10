@@ -1,10 +1,10 @@
 "use client";
 
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, useWatch } from "react-hook-form";
 import { motion } from "framer-motion";
 import { useCompoundInterest } from "../../_context/CompoundInterestFormContext";
 import { InputFormData } from "../../_types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CompoundInterestForm() {
   const { setInputFormData } = useCompoundInterest();
@@ -19,8 +19,22 @@ export default function CompoundInterestForm() {
   const {
     register,
     handleSubmit,
+    control,
+    setValue,
     formState: { errors },
   } = useForm<InputFormData>();
+
+  const monthlyContribution = useWatch({
+    control,
+    name: "monthlyContribution",
+    defaultValue: 0,
+  });
+
+  useEffect(() => {
+    if (monthlyContribution! === 0) {
+      setValue("annualContributionIncreaseRate", undefined);
+    }
+  }, [monthlyContribution, setValue]);
 
   const fields = {
     initialAmount: register("initialAmount", {
@@ -64,14 +78,16 @@ export default function CompoundInterestForm() {
       max: { value: 1_000_000, message: "Value must be 1 million or less." },
     }),
     annualContributionIncreaseRate: register("annualContributionIncreaseRate", {
+      disabled: monthlyContribution === 0,
       setValueAs: (value: string) => (value === "" ? 0 : Number(value)),
       validate: (value) => !isNaN(value!) || "Must be a valid number.",
       min: { value: 0, message: "Value must be at least 0." },
       max: { value: 1000, message: "Value must be 1000 or less." },
     }),
     age: register("age", {
-      setValueAs: (value: string) => (value === "" ? 0 : Number(value)),
-      validate: (value) => !isNaN(value!) || "Must be a valid number.",
+      setValueAs: (value: string) => (value === "" ? undefined : Number(value)),
+      validate: (value) =>
+        value === undefined || !isNaN(value!) || "Must be a valid number.",
       min: { value: 0, message: "Value must be at least 0." },
       max: { value: 200, message: "Value must be 200 or less." },
     }),
@@ -195,7 +211,9 @@ export default function CompoundInterestForm() {
                 <div className="flex justify-center">
                   <input
                     {...fields.annualContributionIncreaseRate}
-                    className="rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full"
+                    className={`rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full ${
+                      monthlyContribution === 0 && "cursor-not-allowed"
+                    }`}
                   />
                   <span className="inline-flex items-center justify-center ps-[10px] pe-3 text-sm rounded-e-lg bg-gray-600 text-gray-400">
                     %

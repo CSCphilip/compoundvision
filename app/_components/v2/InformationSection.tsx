@@ -14,7 +14,7 @@ export default function InformationSection() {
         calculator can also factor in inflation, allowing you to see the real
         future value of your savings, and monthly contributions for even greater
         returns. Those who neglect it miss out on a significant opportunity. The
-        goal of CompoundVision was to motivate people to start saving for a more
+        goal of CompoundVision is to motivate people to start saving for a more
         secure and prosperous future.
       </p>
 
