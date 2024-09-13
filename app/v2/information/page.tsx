@@ -7,6 +7,8 @@ export default function Information() {
         etc.
       </p>
 
+      {/* NOTE: Add text-white (or other color you want) for all the browsers to interpret it correct */}
+
       {/* TODO: More detailed description of compound interest in compared to the above. */}
       <p></p>
 
