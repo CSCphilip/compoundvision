@@ -17,3 +17,9 @@ export type CompoundInterestData = {
   contributions?: number; // From monthly contributions (accumulated), initial + contributions
   totalWithContributionsInflationAdjusted?: number;
 };
+
+export type ResponsiveChart = {
+  isMirror: boolean;
+  yAxisOrientation: "left" | "right";
+  height: number;
+};

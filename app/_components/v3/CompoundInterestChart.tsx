@@ -1,7 +1,11 @@
 "use client";
 
 import { useCompoundInterest } from "@/app/_context/CompoundInterestFormContext";
-import { InputFormData, CompoundInterestData } from "@/app/_types";
+import {
+  InputFormData,
+  CompoundInterestData,
+  ResponsiveChart,
+} from "@/app/_types";
 import { useEffect, useState } from "react";
 import {
   AreaChart,
@@ -10,6 +14,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  ResponsiveContainer,
 } from "recharts";
 
 export default function CompoundInterestChart() {
@@ -28,104 +33,145 @@ export default function CompoundInterestChart() {
   }, [inputFormData]);
 
   const [isMounted, setIsMounted] = useState(false);
+  // Variables related to responsiveness. For the YAxis placement (inner/outer)
+  // and the orientation in the chart.
+  const [responsiveState, setResponsiveState] = useState<ResponsiveChart>({
+    height: 550,
+    isMirror: false,
+    yAxisOrientation: "right",
+  }); // These should be the default values for larger (so far sm)
 
   useEffect(() => {
     setIsMounted(true);
+
+    const handleResize = () => {
+      // 640px is threshold for sm in tailwindcss
+      if (window.innerWidth < 640) {
+        setResponsiveState({
+          height: 400,
+          isMirror: true,
+          yAxisOrientation: "left",
+        });
+      } else {
+        setResponsiveState({
+          height: 550,
+          isMirror: false,
+          yAxisOrientation: "right",
+        });
+      }
+    };
+
+    // Run on mount to set initial value
+    handleResize();
+
+    // Add event listener for window resizing
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup the event listener on component unmount
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   if (!isMounted) return null;
 
   return (
-    <div className="ms-14">
-      <AreaChart
-        width={1105} // The 5 is because of the margin right // Old: 1000
-        height={550} // Old: 500
-        data={compoundInterestData}
-        margin={{ top: 0, right: 5, left: 0, bottom: 0 }}
-        className="border-l-2 border-l-[#363a41]"
-      >
-        <defs>
-          <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#104f42" stopOpacity={0.9} />
-            <stop offset="100%" stopColor="#104f42" stopOpacity={0.05} />
-          </linearGradient>
-          <linearGradient id="colorInflationTotal" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#facc15" stopOpacity={0.5} />
-            <stop offset="100%" stopColor="" stopOpacity={0.05} />
-          </linearGradient>
-          <linearGradient id="colorContributions" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#6b66cf" stopOpacity={0.9} />
-            <stop offset="100%" stopColor="#6b66cf" stopOpacity={0.05} />
-          </linearGradient>
-        </defs>
+    <div className="w-screen max-w-[1105px] px-4 sm:px-0 sm:ps-14 sm:pe-4">
+      <ResponsiveContainer height={responsiveState.height} width="100%">
+        <AreaChart
+          data={compoundInterestData}
+          margin={{ top: 0, right: 5, left: 0, bottom: 0 }}
+          className="sm:border-l-2 sm:border-l-[#363a41]"
+        >
+          <defs>
+            <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#104f42" stopOpacity={0.9} />
+              <stop offset="100%" stopColor="#104f42" stopOpacity={0.05} />
+            </linearGradient>
+            <linearGradient
+              id="colorInflationTotal"
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="1"
+            >
+              <stop offset="5%" stopColor="#facc15" stopOpacity={0.5} />
+              <stop offset="100%" stopColor="" stopOpacity={0.05} />
+            </linearGradient>
+            <linearGradient id="colorContributions" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#6b66cf" stopOpacity={0.9} />
+              <stop offset="100%" stopColor="#6b66cf" stopOpacity={0.05} />
+            </linearGradient>
+          </defs>
 
-        <CartesianGrid strokeDasharray="3 3" opacity={0.5} />
+          <CartesianGrid strokeDasharray="3 3" opacity={0.5} />
 
-        <XAxis dataKey="year" />
+          <XAxis dataKey="year" stroke="#d4d4d4" />
 
-        <YAxis
-          type="number"
-          domain={["auto", "auto"]}
-          tickCount={9}
-          padding={{ top: 20 }}
-          tickFormatter={formatYAxis}
-          orientation="right"
-        />
+          <YAxis
+            type="number"
+            domain={["auto", "auto"]}
+            mirror={responsiveState.isMirror}
+            tickCount={9}
+            stroke="#d4d4d4"
+            padding={{ top: 20 }}
+            tickFormatter={formatYAxis}
+            orientation={responsiveState.yAxisOrientation}
+          />
 
-        <Tooltip animationDuration={500} content={<CustomTooltip />} />
+          <Tooltip animationDuration={500} content={<CustomTooltip />} />
 
-        {inputFormData!.monthlyContribution ? (
-          <>
-            <Area
-              type="monotone"
-              dataKey="totalWithContributions"
-              stroke="#15bf7f"
-              strokeWidth={2}
-              fillOpacity={1}
-              fill="url(#colorTotal)"
-            />
-            {inputFormData!.annualInflationRate && (
+          {inputFormData!.monthlyContribution ? (
+            <>
               <Area
                 type="monotone"
-                dataKey="totalWithContributionsInflationAdjusted"
-                stroke="#facc15"
+                dataKey="totalWithContributions"
+                stroke="#15bf7f"
                 strokeWidth={2}
                 fillOpacity={1}
-                fill="url(#colorInflationTotal)"
+                fill="url(#colorTotal)"
               />
-            )}
-          </>
-        ) : (
-          <>
-            <Area
-              type="monotone"
-              dataKey="total"
-              stroke="#15bf7f"
-              strokeWidth={2}
-              fillOpacity={1}
-              fill="url(#colorTotal)"
-            />
-            {inputFormData!.annualInflationRate && (
+              {inputFormData!.annualInflationRate && (
+                <Area
+                  type="monotone"
+                  dataKey="totalWithContributionsInflationAdjusted"
+                  stroke="#facc15"
+                  strokeWidth={2}
+                  fillOpacity={1}
+                  fill="url(#colorInflationTotal)"
+                />
+              )}
+            </>
+          ) : (
+            <>
               <Area
                 type="monotone"
-                dataKey="totalInflationAdjusted"
-                stroke="#facc15"
+                dataKey="total"
+                stroke="#15bf7f"
                 strokeWidth={2}
                 fillOpacity={1}
-                fill="url(#colorInflationTotal)"
+                fill="url(#colorTotal)"
               />
-            )}
-          </>
-        )}
-        <Area
-          type="monotone"
-          dataKey="contributions"
-          stroke="#8884d8"
-          strokeWidth={2}
-          fillOpacity={1}
-          fill="url(#colorContributions)"
-        />
-      </AreaChart>
+              {inputFormData!.annualInflationRate && (
+                <Area
+                  type="monotone"
+                  dataKey="totalInflationAdjusted"
+                  stroke="#facc15"
+                  strokeWidth={2}
+                  fillOpacity={1}
+                  fill="url(#colorInflationTotal)"
+                />
+              )}
+            </>
+          )}
+          <Area
+            type="monotone"
+            dataKey="contributions"
+            stroke="#8884d8"
+            strokeWidth={2}
+            fillOpacity={1}
+            fill="url(#colorContributions)"
+          />
+        </AreaChart>
+      </ResponsiveContainer>
     </div>
   );
 }
@@ -146,7 +192,7 @@ function CustomTooltip({ active, payload, label }: any) {
   if (active && payload && payload.length) {
     return (
       <div className="bg-gray-700 py-2 px-3 text-sm rounded-lg">
-        <p className="inline-flex items-center font-bold text-lg text-white">
+        <p className="inline-flex justify-center w-full sm:justify-center sm:w-auto items-center font-bold text-lg text-white">
           {label}
           {(age || age === 0) && (
             <>
@@ -157,7 +203,7 @@ function CustomTooltip({ active, payload, label }: any) {
           )}
         </p>
         <br />
-        <p className="inline-flex items-center text-white">
+        <p className="inline-flex mt-1 sm:mt-0 items-center text-white">
           <span className="size-[10px] bg-[#15bf7f] rounded-full inline-block mr-[8px]" />
           Nominal amount:
           <span className="w-[16px]" />

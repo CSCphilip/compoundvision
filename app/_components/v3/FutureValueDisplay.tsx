@@ -68,12 +68,12 @@ export default function FutureValueDisplay() {
     >
       <div className="text-center space-y-1">
         {/* Section Heading */}
-        <p className="inline-flex items-center text-xl font-medium text-gray-300">
+        <p className="inline-flex items-center sm:text-xl font-medium text-gray-300">
           Future Value in {finalYear}
           {futureAge && (
             <>
               {"\u00A0"}
-              <p className="text-gray-400 text-sm pt-0.5">
+              <p className="text-gray-400 text-xs sm:text-sm sm:pt-0.5">
                 {" "}
                 (Age: {futureAge})
               </p>
@@ -82,21 +82,17 @@ export default function FutureValueDisplay() {
         </p>
 
         {/* Future Value */}
-        <p className="text-4xl text-white font-bold">{futureValue}</p>
+        <p className="text-2xl sm:text-4xl text-white font-bold">
+          {futureValue}
+        </p>
 
         {/* Comments */}
         {futureValueComments && (
-          <p className="text-gray-400 text-sm italic">{futureValueComments}</p>
+          <p className="text-gray-400 text-xs sm:text-sm italic">
+            {futureValueComments}
+          </p>
         )}
       </div>
     </motion.div>
   );
 }
-
-// <p className="text-xl text-gray-400 font-medium">
-//   Future Value ({finalYear} - age: {inputFormData!.age}):
-// </p>
-// <p className="mt-1 text-3xl text-white">{futureValue}</p>
-// <p className="mt-1 italic text-gray-400 text-sm">
-//   {futureValueComments && futureValueComments}
-// </p>

@@ -107,8 +107,9 @@ export default function CompoundInterestForm() {
             </span>
             <input
               {...fields.initialAmount}
+              type="number"
               defaultValue={10000}
-              className="rounded-e-lg p-2 text-white bg-[#323546] outline-none w-full"
+              className="rounded-e-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               tabIndex={1}
             />
           </div>
@@ -122,8 +123,9 @@ export default function CompoundInterestForm() {
           <label className="font-medium mb-2 text-white">Years:</label>
           <input
             {...fields.years}
+            type="number"
             defaultValue={15}
-            className="rounded-lg p-2 text-white bg-[#323546] outline-none w-full"
+            className="rounded-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             tabIndex={2}
           />
           {errors.years && (
@@ -139,8 +141,9 @@ export default function CompoundInterestForm() {
           <div className="flex justify-center">
             <input
               {...fields.estimatedInterestRate}
+              type="number"
               defaultValue={8}
-              className="rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full"
+              className="rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               tabIndex={3}
             />
             <span className="inline-flex items-center justify-center ps-[10px] pe-3 text-sm rounded-e-lg bg-gray-600 text-gray-400">
@@ -251,7 +254,8 @@ function OptionalFields({
             <div className="flex justify-center">
               <input
                 {...fields.annualInflationRate}
-                className="rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full"
+                type="number"
+                className="rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
               <span className="inline-flex items-center justify-center ps-[10px] pe-3 text-sm rounded-e-lg bg-gray-600 text-gray-400">
                 %
@@ -273,7 +277,8 @@ function OptionalFields({
               </span>
               <input
                 {...fields.monthlyContribution}
-                className="rounded-e-lg p-2 text-white bg-[#323546] outline-none w-full"
+                type="number"
+                className="rounded-e-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
             </div>
             {errors.monthlyContribution && (
@@ -289,7 +294,8 @@ function OptionalFields({
             <div className="flex justify-center">
               <input
                 {...fields.annualContributionIncreaseRate}
-                className={`rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full ${
+                type="number"
+                className={`rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
                   monthlyContribution === 0 && "cursor-not-allowed"
                 }`}
               />
@@ -307,7 +313,8 @@ function OptionalFields({
             <label className="font-medium mb-2 text-white">Age:</label>
             <input
               {...fields.age}
-              className="rounded-lg p-2 text-white bg-[#323546] outline-none w-full"
+              type="number"
+              className="rounded-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
             {errors.age && (
               <p className="text-sm italic text-red-500">
