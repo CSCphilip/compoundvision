@@ -19,7 +19,7 @@ export default function FormButtons({
       </button>
       <p className="mt-4 sm:mt-12 text-white">Advanced:</p>
       <motion.div
-        animate={{ rotate: isAdvancedOpen ? -90 : 90 }}
+        animate={{ rotate: isAdvancedOpen ? -180 : 0 }}
         transition={{ type: "linear", duration: 0.2 }}
       >
         <button
@@ -43,7 +43,7 @@ export default function FormButtons({
             ></g>
             <g id="SVGRepo_iconCarrier">
               <path
-                d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z"
+                d="M903.232 256l56.768 50.432L512 768 64 306.432 120.768 256 512 659.072z"
                 fill="#ffffff"
               ></path>
             </g>
