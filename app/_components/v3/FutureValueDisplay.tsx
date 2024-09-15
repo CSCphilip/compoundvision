@@ -73,7 +73,7 @@ export default function FutureValueDisplay() {
           {futureAge && (
             <>
               {"\u00A0"}
-              <p className="text-gray-400 text-xs sm:text-sm sm:pt-0.5">
+              <p className="text-gray-400 text-xs sm:text-sm sm:pb-0.5">
                 {" "}
                 (Age: {futureAge})
               </p>
