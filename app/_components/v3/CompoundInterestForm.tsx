@@ -1,10 +1,10 @@
 "use client";
 
+import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { useForm, SubmitHandler, useWatch, FieldErrors } from "react-hook-form";
 import { motion } from "framer-motion";
 import { useCompoundInterest } from "../../_context/CompoundInterestFormContext";
-import { InputFormData } from "../../_types";
-import { useEffect, useState } from "react";
+import { FormFields, InputFormData } from "../../_types";
 
 export default function CompoundInterestForm() {
   const { setInputFormData } = useCompoundInterest();
@@ -31,66 +31,98 @@ export default function CompoundInterestForm() {
     }
   }, [monthlyContribution, setValue]);
 
-  const fields = {
-    initialAmount: register("initialAmount", {
-      required: { value: true, message: "Field must be filled." },
-      valueAsNumber: true,
-      validate: (value) => !isNaN(value) || "Must be a valid number.",
-      min: { value: 1, message: "Amount must be at least 1." },
-      max: {
-        value: 1_000_000_000_000,
-        message: "Value must be 1 trillion or less.",
-      },
-    }),
-    years: register("years", {
-      required: { value: true, message: "Field must be filled." },
-      valueAsNumber: true,
-      validate: (value) => !isNaN(value) || "Must be a valid number.",
-      min: { value: 1, message: "Value must be at least 1." },
-      max: { value: 200, message: "Value must be 200 or less." },
-    }),
-    estimatedInterestRate: register("estimatedInterestRate", {
-      required: { value: true, message: "Field must be filled." },
-      valueAsNumber: true,
-      validate: (value) => !isNaN(value) || "Must be a valid number.",
-      min: { value: 0, message: "Value must be at least 0." },
-      max: { value: 500, message: "Value must be 500 or less." },
-    }),
+  const fields: FormFields = {
+    initialAmount: {
+      registerInput: register("initialAmount", {
+        required: { value: true, message: "Field must be filled." },
+        valueAsNumber: true,
+        validate: (value) => !isNaN(value) || "Must be a valid number.",
+        min: { value: 1, message: "Amount must be at least 1." },
+        max: {
+          value: 1_000_000_000_000,
+          message: "Value must be 1 trillion or less.",
+        },
+      }),
+      ref: useRef<HTMLInputElement | null>(null),
+    },
+    years: {
+      registerInput: register("years", {
+        required: { value: true, message: "Field must be filled." },
+        valueAsNumber: true,
+        validate: (value) => !isNaN(value) || "Must be a valid number.",
+        min: { value: 1, message: "Value must be at least 1." },
+        max: { value: 200, message: "Value must be 200 or less." },
+      }),
+      ref: useRef<HTMLInputElement | null>(null),
+    },
+    estimatedInterestRate: {
+      registerInput: register("estimatedInterestRate", {
+        required: { value: true, message: "Field must be filled." },
+        valueAsNumber: true,
+        validate: (value) => !isNaN(value) || "Must be a valid number.",
+        min: { value: 0, message: "Value must be at least 0." },
+        max: { value: 500, message: "Value must be 500 or less." },
+      }),
+      ref: useRef<HTMLInputElement | null>(null),
+    },
     // Optional fields:
-    annualInflationRate: register("annualInflationRate", {
-      /* The following setValueAs is to differentiate "" from NaN when no input is given (default case). 
-      Without this the validate will complain when the input is empty as default. 
-      This leads to the form to not submit when the optional fields are empty. */
-      setValueAs: (value: string) => (value === "" ? 0 : Number(value)),
-      validate: (value) => !isNaN(value!) || "Must be a valid number.",
-      min: { value: 0, message: "Value must be at least 0." },
-      max: { value: 100, message: "Value must be 100 or less." },
-    }),
-    monthlyContribution: register("monthlyContribution", {
-      setValueAs: (value: string) => (value === "" ? 0 : Number(value)),
-      validate: (value) => !isNaN(value!) || "Must be a valid number.",
-      min: { value: 0, message: "Value must be at least 0." },
-      max: { value: 1_000_000, message: "Value must be 1 million or less." },
-    }),
-    annualContributionIncreaseRate: register("annualContributionIncreaseRate", {
-      disabled: monthlyContribution === 0,
-      setValueAs: (value: string) => (value === "" ? 0 : Number(value)),
-      validate: (value) => !isNaN(value!) || "Must be a valid number.",
-      min: { value: 0, message: "Value must be at least 0." },
-      max: { value: 1000, message: "Value must be 1000 or less." },
-    }),
-    age: register("age", {
-      setValueAs: (value: string) => (value === "" ? undefined : Number(value)),
-      validate: (value) =>
-        value === undefined || !isNaN(value!) || "Must be a valid number.",
-      min: { value: 0, message: "Value must be at least 0." },
-      max: { value: 200, message: "Value must be 200 or less." },
-    }),
+    annualInflationRate: {
+      registerInput: register("annualInflationRate", {
+        /* The following setValueAs is to differentiate "" from NaN when no input is given (default case). 
+        Without this the validate will complain when the input is empty as default. 
+        This leads to the form to not submit when the optional fields are empty. */
+        setValueAs: (value: string) => (value === "" ? 0 : Number(value)),
+        validate: (value) => !isNaN(value!) || "Must be a valid number.",
+        min: { value: 0, message: "Value must be at least 0." },
+        max: { value: 100, message: "Value must be 100 or less." },
+      }),
+      ref: useRef<HTMLInputElement | null>(null),
+    },
+    monthlyContribution: {
+      registerInput: register("monthlyContribution", {
+        setValueAs: (value: string) => (value === "" ? 0 : Number(value)),
+        validate: (value) => !isNaN(value!) || "Must be a valid number.",
+        min: { value: 0, message: "Value must be at least 0." },
+        max: { value: 1_000_000, message: "Value must be 1 million or less." },
+      }),
+      ref: useRef<HTMLInputElement | null>(null),
+    },
+    annualContributionIncreaseRate: {
+      registerInput: register("annualContributionIncreaseRate", {
+        disabled: monthlyContribution === 0,
+        setValueAs: (value: string) => (value === "" ? 0 : Number(value)),
+        validate: (value) => !isNaN(value!) || "Must be a valid number.",
+        min: { value: 0, message: "Value must be at least 0." },
+        max: { value: 1000, message: "Value must be 1000 or less." },
+      }),
+      ref: useRef<HTMLInputElement | null>(null),
+    },
+    age: {
+      registerInput: register("age", {
+        setValueAs: (value: string) =>
+          value === "" ? undefined : Number(value),
+        validate: (value) =>
+          value === undefined || !isNaN(value!) || "Must be a valid number.",
+        min: { value: 0, message: "Value must be at least 0." },
+        max: { value: 200, message: "Value must be 200 or less." },
+      }),
+      ref: useRef<HTMLInputElement | null>(null),
+    },
   };
 
   const onSubmitCompoundInterestForm: SubmitHandler<InputFormData> = (
     inputFormData
-  ) => setInputFormData(inputFormData);
+  ) => {
+    setInputFormData(inputFormData);
+
+    // Close the mobile keyboard by blurring the active element
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+
+    // Scroll to the top on submit to always see the chart
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <form
@@ -106,11 +138,16 @@ export default function CompoundInterestForm() {
               $
             </span>
             <input
-              {...fields.initialAmount}
+              {...fields.initialAmount.registerInput}
               type="number"
               defaultValue={10000}
               className="rounded-e-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               tabIndex={1}
+              onFocus={() => handleFocus(fields.initialAmount.ref)}
+              ref={(e) => {
+                fields.initialAmount.registerInput.ref(e);
+                fields.initialAmount.ref.current = e;
+              }}
             />
           </div>
           {errors.initialAmount && (
@@ -122,11 +159,16 @@ export default function CompoundInterestForm() {
         <li className="flex flex-col items-center">
           <label className="font-medium mb-2 text-white">Years:</label>
           <input
-            {...fields.years}
+            {...fields.years.registerInput}
             type="number"
             defaultValue={15}
             className="rounded-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             tabIndex={2}
+            onFocus={() => handleFocus(fields.years.ref)}
+            ref={(e) => {
+              fields.years.registerInput.ref(e);
+              fields.years.ref.current = e;
+            }}
           />
           {errors.years && (
             <p className="text-sm italic text-red-500">
@@ -140,11 +182,16 @@ export default function CompoundInterestForm() {
           </label>
           <div className="flex justify-center">
             <input
-              {...fields.estimatedInterestRate}
+              {...fields.estimatedInterestRate.registerInput}
               type="number"
               defaultValue={8}
               className="rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               tabIndex={3}
+              onFocus={() => handleFocus(fields.estimatedInterestRate.ref)}
+              ref={(e) => {
+                fields.estimatedInterestRate.registerInput.ref(e);
+                fields.estimatedInterestRate.ref.current = e;
+              }}
             />
             <span className="inline-flex items-center justify-center ps-[10px] pe-3 text-sm rounded-e-lg bg-gray-600 text-gray-400">
               %
@@ -253,9 +300,14 @@ function OptionalFields({
             </label>
             <div className="flex justify-center">
               <input
-                {...fields.annualInflationRate}
+                {...fields.annualInflationRate.registerInput}
                 type="number"
                 className="rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                onFocus={() => handleFocus(fields.annualInflationRate.ref)}
+                ref={(e) => {
+                  fields.annualInflationRate.registerInput.ref(e);
+                  fields.annualInflationRate.ref.current = e;
+                }}
               />
               <span className="inline-flex items-center justify-center ps-[10px] pe-3 text-sm rounded-e-lg bg-gray-600 text-gray-400">
                 %
@@ -276,9 +328,14 @@ function OptionalFields({
                 $
               </span>
               <input
-                {...fields.monthlyContribution}
+                {...fields.monthlyContribution.registerInput}
                 type="number"
                 className="rounded-e-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                onFocus={() => handleFocus(fields.monthlyContribution.ref)}
+                ref={(e) => {
+                  fields.monthlyContribution.registerInput.ref(e);
+                  fields.monthlyContribution.ref.current = e;
+                }}
               />
             </div>
             {errors.monthlyContribution && (
@@ -293,11 +350,18 @@ function OptionalFields({
             </label>
             <div className="flex justify-center">
               <input
-                {...fields.annualContributionIncreaseRate}
+                {...fields.annualContributionIncreaseRate.registerInput}
                 type="number"
                 className={`rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
                   monthlyContribution === 0 && "cursor-not-allowed"
                 }`}
+                onFocus={() =>
+                  handleFocus(fields.annualContributionIncreaseRate.ref)
+                }
+                ref={(e) => {
+                  fields.annualContributionIncreaseRate.registerInput.ref(e);
+                  fields.annualContributionIncreaseRate.ref.current = e;
+                }}
               />
               <span className="inline-flex items-center justify-center ps-[10px] pe-3 text-sm rounded-e-lg bg-gray-600 text-gray-400">
                 %
@@ -312,9 +376,14 @@ function OptionalFields({
           <li className="flex flex-col items-center mb-3 sm:mb-8">
             <label className="font-medium mb-2 text-white">Age:</label>
             <input
-              {...fields.age}
+              {...fields.age.registerInput}
               type="number"
               className="rounded-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              onFocus={() => handleFocus(fields.age.ref)}
+              ref={(e) => {
+                fields.age.registerInput.ref(e);
+                fields.age.ref.current = e;
+              }}
             />
             {errors.age && (
               <p className="text-sm italic text-red-500">
@@ -327,3 +396,8 @@ function OptionalFields({
     </li>
   );
 }
+
+const handleFocus = (ref: MutableRefObject<HTMLInputElement | null>) => {
+  const inputElement = ref.current;
+  inputElement && inputElement.select();
+};

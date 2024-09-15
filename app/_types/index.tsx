@@ -1,3 +1,6 @@
+import { MutableRefObject } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
+
 export type InputFormData = {
   initialAmount: number;
   years: number;
@@ -22,4 +25,13 @@ export type ResponsiveChart = {
   isMirror: boolean;
   yAxisOrientation: "left" | "right";
   height: number;
+};
+
+export type InputField = {
+  registerInput: UseFormRegisterReturn;
+  ref: MutableRefObject<HTMLInputElement | null>;
+};
+
+export type FormFields = {
+  [key: string]: InputField;
 };
