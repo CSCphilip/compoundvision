@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function InformationSection() {
   return (
     <div className="flex flex-col items-center">
-      <p className="px-5 sm:px-0 sm:w-[715px] text-center sm:text-xl text-neutral-200 mt-[20px] sm:mt-[30px]">
+      <p className="px-5 sm:px-0 sm:max-w-[715px] sm:mx-5 text-center sm:text-xl text-neutral-200 mt-[20px] sm:mt-[30px]">
         CompoundVision combines the concept of compound interest with
         interactive visualization, demonstrating the powerful impact of this
         financial principle. Compound interest is like a snowball that grows
@@ -18,7 +18,7 @@ export default function InformationSection() {
 
       <Link
         href="/v3/information"
-        className="mt-14 sm:mt-20 text-sm sm:text-lg font-medium hover:text-cyan-500 border rounded-md px-14 sm:px-20 py-3 sm:py-4 text-white"
+        className="mt-14 sm:mt-20 text-sm sm:text-lg font-medium hover:text-cyan-200 border rounded-md px-14 sm:px-20 py-3 sm:py-4 text-white"
       >
         Read more
       </Link>

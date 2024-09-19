@@ -134,10 +134,10 @@ export default function CompoundInterestForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmitCompoundInterestForm)}
-      className="sm:flex w-fit bg-[#101010] rounded-md pt-5 pb-4 sm:pb-0 mx-3 sm:mx-0 px-4 sm:px-14 bg-opacity-80"
+      className="sm:flex w-fit bg-[#101010] rounded-md pt-5 pb-4 sm:pb-0 px-8 sm:px-14 bg-opacity-80"
       autoComplete="off"
     >
-      <ul className="flex flex-col gap-y-4 sm:gap-y-2 min-w-[200px] sm:w-[235px] mx-4">
+      <ul className="flex flex-col gap-y-4 sm:gap-y-2 min-w-[180px] max-w-[235px] mx-4">
         <SimpleFields
           fields={fields}
           errors={errors}

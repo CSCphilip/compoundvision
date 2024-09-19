@@ -9,8 +9,7 @@ import CompoundInterestForm from "../_components/v3/CompoundInterestForm";
 import SlidingQuote from "../_components/v3/SlidingQuote";
 import InformationSection from "../_components/v3/InformationSection";
 import FutureValueDisplay from "../_components/v3/FutureValueDisplay";
-
-// TODO: Make three versions for responsiveness (to start with): default, sm, lg
+import IntroductionText from "../_components/v3/IntroductionText";
 
 export default function CompoundVisionV3() {
   const { inputFormData } = useCompoundInterest();
@@ -31,7 +30,7 @@ export default function CompoundVisionV3() {
 
       <div className="hidden 2xl:inline z-0 w-11/12 max-w-[2000px] h-5/6  max-h-[1000px] self-center absolute mt-32 border-t-2 border-x-2 border-blue-700 rounded-full border-shadow" />
 
-      <div className="relative left-1/2 transform -translate-x-1/2 w-fit h-fit mt-6 sm:mt-20">
+      <div className="relative left-1/2 transform -translate-x-1/2 w-fit h-fit mt-7 sm:mt-20">
         {/* Chart and FV: */}
         <div className="relative left-1/2 transform -translate-x-1/2 w-fit">
           <motion.div
@@ -49,16 +48,17 @@ export default function CompoundVisionV3() {
           </motion.div>
         </div>
 
-        {/* Form: */}
-        <div className="relative left-1/2 transform -translate-x-1/2 w-fit pb-[90px]">
+        {/* Introduction and Form: */}
+        <div className="relative left-1/2 transform -translate-x-1/2 w-fit pb-[100px]">
           <motion.div
+            className="mx-3 sm:mx-0 flex flex-col items-center"
             initial={{ y: 0 }}
             animate={{
-              y: inputFormData !== null ? 20 : 0,
-              marginBottom: inputFormData !== null ? 40 : 0,
+              y: inputFormData !== null ? -10 : 0,
             }}
             transition={{ type: "easeInOut", duration: 1.4 }}
           >
+            <IntroductionText />
             <CompoundInterestForm />
           </motion.div>
         </div>

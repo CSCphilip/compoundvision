@@ -13,7 +13,6 @@ export default function SlidingQuote() {
     <>
       {/* On smaller screens */}
       <div className="sm:hidden">
-        {/* fixed bottom-4 right-4 shadow-xl bg-sky-500 bg-opacity-90 rounded-full p-4 text-white hover:bg-sky-600 focus:outline-none focus:ring-4 focus:ring-sky-300 transition-all duration-300 ease-in-out */}
         <button
           className={`z-50 fixed bottom-0 right-0 shadow-2xl bg-cyan-600 bg-opacity-80 rounded-full mb-4 mr-3 hover:bg-cyan-600 ${
             isMobileQuoteOpen && "ring-2 ring-sky-300"
@@ -44,8 +43,8 @@ export default function SlidingQuote() {
       {/* On larger screens */}
       <motion.div
         className="hidden sm:inline w-[600px] fixed bottom-0 right-0 mb-5 cursor-pointer bg-opacity-80 bg-[#0d1421] rounded-l-lg pl-5"
-        initial={{ x: "78%" }}
-        whileHover={{ x: 0 }}
+        initial={{ x: "79%" }}
+        whileHover={{ x: -15 }}
         transition={{ type: "easeInOut", duration: 2 }}
       >
         <div className="flex items-center gap-x-4">

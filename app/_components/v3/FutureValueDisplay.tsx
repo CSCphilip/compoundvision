@@ -61,7 +61,7 @@ export default function FutureValueDisplay() {
 
   return (
     <motion.div
-      className="pt-12 text-center"
+      className="pt-8 sm:pt-12 text-center"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 2 }}
