@@ -54,7 +54,7 @@ export default function CompoundVisionV3() {
             className="mx-3 sm:mx-0 flex flex-col items-center"
             initial={{ y: 0 }}
             animate={{
-              y: inputFormData !== null ? -10 : 0,
+              y: inputFormData !== null ? -5 : 0,
             }}
             transition={{ type: "easeInOut", duration: 1.4 }}
           >

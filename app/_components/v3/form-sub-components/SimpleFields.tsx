@@ -25,7 +25,7 @@ export default function SimpleFields({
             {...fields.initialAmount.registerInput}
             type="number"
             defaultValue={10000}
-            className="rounded-e-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            className="rounded-lg rounded-s-none p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             tabIndex={1}
             onFocus={() => handleFocus(fields.initialAmount.ref)}
             ref={(e) => {
@@ -69,7 +69,7 @@ export default function SimpleFields({
             {...fields.estimatedInterestRate.registerInput}
             type="number"
             defaultValue={8}
-            className="rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+            className="rounded-lg rounded-e-none p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             tabIndex={3}
             onFocus={() => handleFocus(fields.estimatedInterestRate.ref)}
             ref={(e) => {

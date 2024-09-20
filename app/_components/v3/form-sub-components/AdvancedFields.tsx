@@ -39,7 +39,7 @@ export default function AdvancedFields({
               <input
                 {...fields.annualInflationRate.registerInput}
                 type="number"
-                className="rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                className="rounded-lg rounded-e-none p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 onFocus={() => handleFocus(fields.annualInflationRate.ref)}
                 ref={(e) => {
                   fields.annualInflationRate.registerInput.ref(e);
@@ -67,7 +67,7 @@ export default function AdvancedFields({
               <input
                 {...fields.monthlyContribution.registerInput}
                 type="number"
-                className="rounded-e-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                className="rounded-lg rounded-s-none p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 onFocus={() => handleFocus(fields.monthlyContribution.ref)}
                 ref={(e) => {
                   fields.monthlyContribution.registerInput.ref(e);
@@ -89,7 +89,7 @@ export default function AdvancedFields({
               <input
                 {...fields.annualContributionIncreaseRate.registerInput}
                 type="number"
-                className={`rounded-s-lg p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
+                className={`rounded-lg rounded-e-none p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
                   monthlyContribution === 0 && "cursor-not-allowed"
                 }`}
                 onFocus={() =>
