@@ -341,9 +341,10 @@ function calcCompoundInterest(
       contributions += currentMonthlyContribution * 12;
       totalWithContributions = total;
       totalWithContributions +=
-        currentMonthlyContribution *
-        12 *
-        ((Math.pow(1 + interestRate, i) - 1) / interestRate);
+        (currentMonthlyContribution *
+          12 *
+          (Math.pow(1 + interestRate, i) - 1)) /
+        interestRate;
 
       if (calcInflationAdjustment) {
         totalWithContributionsInflationAdjusted =
