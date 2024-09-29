@@ -17,7 +17,7 @@ export default function InformationSection() {
       </p>
 
       <Link
-        href="/v3/information"
+        href="/information"
         className="mt-14 sm:mt-20 text-sm sm:text-lg font-medium hover:text-blue-400 hover:bg-opacity-90 border rounded-md px-14 sm:px-20 py-3 sm:py-4 text-white"
       >
         Read more

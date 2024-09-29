@@ -6,7 +6,7 @@ import {
   CompoundInterestData,
   ResponsiveChart,
 } from "@/app/_types";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AreaChart,
   Area,

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import React from "react";
 
 import CompoundInterestChart from "../_components/v3/CompoundInterestChart";
 import { useCompoundInterest } from "../_context/CompoundInterestFormContext";
@@ -72,7 +73,7 @@ export default function CompoundVisionV3() {
 
       <div className="flex justify-center mt-20 sm:mt-48">
         <Link
-          href="/v3/about"
+          href="/about"
           className="pb-4 pt-3 sm:hover:rounded-t-xl w-full sm:w-fit text-center sm:px-56 hover:bg-slate-900 hover:bg-opacity-85 text-white"
         >
           About this project

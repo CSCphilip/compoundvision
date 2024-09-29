@@ -223,7 +223,7 @@ export default function Information() {
 
       <div className="flex flex-col items-center mt-4">
         <div className="inline-flex justify-center">
-          <Link href="/v3">
+          <Link href="/">
             <svg
               className="fill-white hover:fill-gray-400 size-10 transition-all"
               viewBox="0 0 24 24"

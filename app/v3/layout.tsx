@@ -1,9 +1,12 @@
-import { CompoundInterestProvider } from "../_context/CompoundInterestFormContext";
+"use client";
 
-export default function V2Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="overflow-x-hidden">
-      <CompoundInterestProvider>{children}</CompoundInterestProvider>
-    </div>
-  );
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
+export default function V3Layout({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+
+  useEffect(() => router.push("/"), []);
+
+  return <div className="overflow-x-hidden">{children}</div>;
 }

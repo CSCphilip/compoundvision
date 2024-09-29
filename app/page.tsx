@@ -1,99 +1,86 @@
 "use client";
 
-import { useState } from "react";
-import {
-  LineChart,
-  Line,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import React from "react";
 
-export default function Home() {
-  const data = [
-    { year: 2024, amount: 100000 },
-    { year: 2025, amount: 200000 },
-    { year: 2026, amount: 400000 },
-    { year: 2027, amount: 800000 },
-    { year: 2028, amount: 1600000 },
-    { year: 2029, amount: 3200000 },
-    { year: 2030, amount: 6400000 },
-  ];
+import CompoundInterestChart from "./_components/v3/CompoundInterestChart";
+import { useCompoundInterest } from "./_context/CompoundInterestFormContext";
+import CompoundInterestForm from "./_components/v3/CompoundInterestForm";
+import SlidingQuote from "./_components/v3/SlidingQuote";
+import InformationSection from "./_components/v3/InformationSection";
+import FutureValueDisplay from "./_components/v3/FutureValueDisplay";
+import IntroductionText from "./_components/v3/IntroductionText";
 
-  const [data2, setData2] = useState<{ year: number; amount: number }[]>([]);
+export default function CompoundVisionV3() {
+  const { inputFormData } = useCompoundInterest();
 
-  const originalPrincipalSum = 100000;
-  const nominalAnnualInterestRate = 0.08;
-  const futureYears = 53;
-
-  const compoundInterest = (years: number) =>
-    originalPrincipalSum * Math.pow(1 + nominalAnnualInterestRate, years);
-
-  const partialAmounts = [];
-
-  for (var i = 0; i <= futureYears; i++) {
-    partialAmounts.push(compoundInterest(i));
-  }
-
-  const startYear = 2024;
-
-  const tmpData = partialAmounts.map((amount, index) => {
-    const year = startYear + index;
-    return { year, amount: Math.floor(amount) };
-  });
-
-  return (
-    <main className="w-screen py-20 px-14 flex flex-col items-center">
-      <h1 className="text-3xl">CompoundVision</h1>
-      <button
-        onClick={() => setData2(tmpData)}
-        className="my-10 p-2 rounded-md bg-blue-600 hover:bg-blue-500"
-      >
-        Set Data
-      </button>
-
-      {data2.length ? (
-        <LineChart
-          width={1000}
-          height={500}
-          data={data2}
-          margin={{ top: 5, right: 10, bottom: 0, left: 20 }}
-        >
-          <XAxis dataKey="year" />
-          <YAxis tickCount={10} scale={"pow"} padding={{ bottom: 10 }} />
-          <Tooltip content={<CustomTooltip />} />
-          <CartesianGrid vertical={false} strokeDasharray="3" />
-          <Line type="monotone" dataKey="amount" stroke="#8884d8" />
-        </LineChart>
-      ) : (
-        <p>No input yet</p>
-      )}
-    </main>
-  );
-}
-
-function CustomTooltip({ active, payload, label }: any) {
-  const formatAmount = (num: number): string => {
-    return new Intl.NumberFormat("en-US", {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-      useGrouping: true,
-    })
-      .format(num)
-      .replace(/,/g, " ");
+  const chartAndFvVariants = {
+    closed: { height: 0, opacity: 0 },
+    open: { height: "auto", opacity: 1 },
   };
 
-  if (active && payload && payload.length) {
-    return (
-      <div className="border-2 border-[#8884d8] px-2 py-3 bg-slate-200 text-black">
-        <p>{`${label}: ${formatAmount(payload[0].value)} SEK`}</p>
-        <p>Years: {label - 2024}</p>
-        <p>Age: {27 + label - 2024}</p>
+  return (
+    <main className="flex flex-col bg-[#0d1421] w-screen min-h-screen overflow-x-hidden">
+      <div className="flex justify-center mr-2 mt-2 sm:-mt-2">
+        <img
+          src="/CompoundVision_logo.png"
+          className="scale-[0.8] sm:scale-[0.7]"
+          alt="logo"
+        />
       </div>
-    );
-  }
 
-  return null;
+      <div className="hidden 2xl:inline z-0 w-11/12 max-w-[2000px] h-5/6  max-h-[1000px] self-center absolute mt-32 border-t-2 border-x-2 border-blue-700 rounded-full border-shadow" />
+
+      <div className="relative left-1/2 transform -translate-x-1/2 w-fit h-fit mt-7 sm:mt-20">
+        {/* Chart and FV: */}
+        <div className="relative left-1/2 transform -translate-x-1/2 w-fit">
+          <motion.div
+            initial="closed"
+            animate={inputFormData !== null ? "open" : "closed"}
+            variants={chartAndFvVariants}
+            transition={{ duration: 1, ease: "easeInOut" }}
+          >
+            {inputFormData && (
+              <>
+                <CompoundInterestChart />
+                <FutureValueDisplay />
+              </>
+            )}
+          </motion.div>
+        </div>
+
+        {/* Introduction and Form: */}
+        <div className="relative left-1/2 transform -translate-x-1/2 w-fit pb-[100px]">
+          <motion.div
+            className="mx-3 sm:mx-0 flex flex-col items-center"
+            initial={{ y: 0 }}
+            animate={{
+              y: inputFormData !== null ? -5 : 0,
+            }}
+            transition={{ type: "easeInOut", duration: 1.4 }}
+          >
+            <IntroductionText />
+            <CompoundInterestForm />
+          </motion.div>
+        </div>
+      </div>
+
+      <InformationSection />
+
+      {/* To always push the link to the bottom of the content of the page  */}
+      <div className="grow" />
+
+      <div className="flex justify-center mt-20 sm:mt-48">
+        <Link
+          href="/about"
+          className="pb-4 pt-3 sm:hover:rounded-t-xl w-full sm:w-fit text-center sm:px-56 hover:bg-slate-900 hover:bg-opacity-85 text-white"
+        >
+          About this project
+        </Link>
+      </div>
+
+      <SlidingQuote />
+    </main>
+  );
 }

@@ -17,7 +17,7 @@ export default function About() {
         effort went into designing the form for the calculator, including
         features such as input validation, disabled fields, and text selection
         to enable quick changes to inputs. I have also considered from the
-        user's perspective which is unfamiliar with these concepts, by
+        user&apos;s perspective which is unfamiliar with these concepts, by
         describing them clearly in the text as well as through intuitive UI
         design. I also wanted to include some playfulness in the project, so I
         included a quote from Einstein on the website which slides in on hover
@@ -29,8 +29,8 @@ export default function About() {
         </Link>
         ). I also found it fun to study the formula for compound interest, now a
         few years after I completed university where I studied a lot of math.
-        Lastly, as the project progressed, though it wasn't my initial idea, I
-        wanted the website to motivate people to start saving more, and
+        Lastly, as the project progressed, though it wasn&apos;t my initial
+        idea, I wanted the website to motivate people to start saving more, and
         hopefully leveraging the power of compound interest.
       </p>
       <p className="text-center px-6 mt-4">
@@ -49,7 +49,7 @@ export default function About() {
           alt="GitHub logo"
         />
       </Link>
-      <Link className="mt-8 size-10" href="/v3">
+      <Link className="mt-8 size-10" href="/">
         <svg
           viewBox="0 0 24 24"
           fill="none"

@@ -1,12 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
+import React from "react";
 
 import CompoundInterestChart from "../_components/v2/CompoundInterestChart";
 import { useCompoundInterest } from "../_context/CompoundInterestFormContext";
 import CompoundInterestForm from "../_components/v2/CompoundInterestForm";
 import SlidingQuote from "../_components/v2/SlidingQuote";
-import Link from "next/link";
 import InformationSection from "../_components/v2/InformationSection";
 import FutureValueDisplay from "../_components/v2/FutureValueDisplay";
 

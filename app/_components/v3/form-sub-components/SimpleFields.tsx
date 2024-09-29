@@ -1,5 +1,5 @@
 import { FormFields, InputFormData } from "@/app/_types";
-import { MutableRefObject } from "react";
+import React, { MutableRefObject } from "react";
 import { FieldErrors } from "react-hook-form";
 
 interface SimpleFieldsProps {

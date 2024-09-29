@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+import { CompoundInterestProvider } from "./_context/CompoundInterestFormContext";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,7 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="overflow-x-hidden">
+          <CompoundInterestProvider>{children}</CompoundInterestProvider>
+        </div>
+      </body>
     </html>
   );
 }

@@ -1,6 +1,6 @@
 import { useCompoundInterest } from "@/app/_context/CompoundInterestFormContext";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function FutureValueDisplay() {
   const { compoundInterestData, inputFormData } = useCompoundInterest();
