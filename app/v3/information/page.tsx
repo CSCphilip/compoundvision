@@ -34,10 +34,10 @@ export default function Information() {
             </p>
             <p className="mt-3 sm:mt-4">
               You can compare compound interest to simple interest where you
-              only earn interest on the initial amount. Given you don't save any
-              more money, you will earn the same amount of interest every
-              interval. The money will grow linearly instead of exponentially
-              which it does with compound interest.
+              only earn interest on the initial amount. Given you don&apos;t
+              save any more money, you will earn the same amount of interest
+              every interval. The money will grow linearly instead of
+              exponentially which it does with compound interest.
             </p>
             <p className="mt-3 sm:mt-4">
               When it comes to compound interest, the most important factor is
@@ -72,8 +72,8 @@ export default function Information() {
 
             <h3 className="font-bold text-lg mt-3">Example:</h3>
             <p>
-              Let's say your initial amount is $1000, and the interest rate each
-              year is 10%.
+              Let&apos;s say your initial amount is $1000, and the interest rate
+              each year is 10%.
             </p>
 
             <p className="mt-2">
@@ -103,12 +103,12 @@ export default function Information() {
             <h3 className="font-bold text-lg mt-3">Debt:</h3>
             <p>
               Compound interest also applies to debt. If you have a loan and
-              don't pay the interest, this will be added to the debt and
+              don&apos;t pay the interest, this will be added to the debt and
               increase the amount of interest you need to pay in the future. You
               could say it is the reverse as if you saved money with compound
               interest. The debt will increasingly grow, and it gets harder to
-              pay it off. That's why it's crucial to pay off debt as quickly as
-              possible.
+              pay it off. That&apos;s why it&apos;s crucial to pay off debt as
+              quickly as possible.
             </p>
           </div>
 
@@ -186,20 +186,20 @@ export default function Information() {
               <p className="mt-1 sm:mt-2">
                 With the CompoundVision calculator, you can enter an annual
                 inflation rate. This really shows how much of an impact
-                inflation has on each person's future savings. There is a common
-                misconception when considering the future value of money, which
-                is also intended to be emphasized with this calculator.
+                inflation has on each person&apos;s future savings. There is a
+                common misconception when considering the future value of money,
+                which is also intended to be emphasized with this calculator.
               </p>
               <p className="mt-3 sm:mt-4">
                 Inflation is a general increase in prices of goods and services
                 over time. This leads to a loss of value of the savings you
-                have. Let’s say you have $100, and there's a product you want to
-                buy that costs exactly $100. However, when you return to buy the
-                product later, it now costs $102 (2% increase). Even though you
-                still have the same $100, you can no longer afford the product
-                because its price has increased. This means the purchasing power
-                of your money has decreased, and that you need more money to buy
-                the same product.
+                have. Let’s say you have $100, and there&apos;s a product you
+                want to buy that costs exactly $100. However, when you return to
+                buy the product later, it now costs $102 (2% increase). Even
+                though you still have the same $100, you can no longer afford
+                the product because its price has increased. This means the
+                purchasing power of your money has decreased, and that you need
+                more money to buy the same product.
               </p>
               <p className="mt-3 sm:mt-4">
                 There are two key terms used to describe future monetary value:

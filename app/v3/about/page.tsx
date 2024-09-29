@@ -2,9 +2,42 @@ import Link from "next/link";
 
 export default function About() {
   return (
-    <div className="bg-[#0d1421] w-screen h-screen flex flex-col justify-center items-center text-white">
-      <p className="text-center px-4">
+    <div className="bg-[#0d1421] w-screen min-h-screen flex flex-col justify-center items-center text-white py-10">
+      <p className="px-4 text-center max-w-[610px]">
+        The idea for this project came from wanting to build a website with a
+        graph in React and Next.js. Furthermore, I had recently read a book on
+        finance, and with this, I got the idea to build a compound interest
+        calculator with a nice looking graph. Other compound interest
+        calculators on the internet are pretty dull and I wanted to create one
+        with better design and attractive transitions. For this, I used a
+        charting library called Recharts and a motion library called Framer
+        Motion, both built for React. The website&apos;s design, created by
+        myself using Tailwind CSS, is fully responsive and carefully thought out
+        because I like to create websites that look good. A lot of thought and
+        effort went into designing the form for the calculator, including
+        features such as input validation, disabled fields, and text selection
+        to enable quick changes to inputs. I have also considered from the
+        user's perspective which is unfamiliar with these concepts, by
+        describing them clearly in the text as well as through intuitive UI
+        design. I also wanted to include some playfulness in the project, so I
+        included a quote from Einstein on the website which slides in on hover
+        (larger screens) and on click (smaller screens). Some say it takes three
+        attempts to build something well, and this is the first time I really
+        followed this philosophy for coding, and I am pleased with the result (
+        <Link href="/v1" className="text-blue-500 hover:underline">
+          first version
+        </Link>
+        ). I also found it fun to study the formula for compound interest, now a
+        few years after I completed university where I studied a lot of math.
+        Lastly, as the project progressed, though it wasn't my initial idea, I
+        wanted the website to motivate people to start saving more, and
+        hopefully leveraging the power of compound interest.
+      </p>
+      <p className="text-center px-6 mt-4">
         Made by Philip Andersson, with passion for tech and finance.
+      </p>
+      <p className="text-center px-6 mt-1 italic">
+        September 29, 2024. Stockholm, Sweden.
       </p>
       <Link
         href={"https://github.com/CSCphilip/compoundvision"}
@@ -13,9 +46,10 @@ export default function About() {
         <img
           src="/github-mark-white.png"
           className="size-10 hover:opacity-80 hover:rotate-12 transition-all duration-500"
+          alt="GitHub logo"
         />
       </Link>
-      <Link className="mt-10 size-10" href="/v3">
+      <Link className="mt-8 size-10" href="/v3">
         <svg
           viewBox="0 0 24 24"
           fill="none"

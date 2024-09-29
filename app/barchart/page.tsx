@@ -69,6 +69,7 @@ export default function BarChartVision() {
     setData2(tmpData);
     setYTYInterest(tmpYTYInterest);
     setData3(tmp2);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!isMounted) return null;

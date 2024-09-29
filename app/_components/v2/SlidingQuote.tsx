@@ -33,8 +33,9 @@ export default function SlidingQuote() {
         <div className="text-white">
           <p className="text-[15px]">
             <i>
-              "Compound interest is the eighth wonder of the world. He who
-              understands it, earns it ... he who doesn't ... pays it."
+              &quot;Compound interest is the eighth wonder of the world. He who
+              understands it, earns it ... he who doesn&apos;t ... pays
+              it.&quot;
             </i>
           </p>
           <p className="mt-1 font-bold">― Albert Einstein</p>

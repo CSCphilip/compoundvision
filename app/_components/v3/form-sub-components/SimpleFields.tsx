@@ -24,7 +24,7 @@ export default function SimpleFields({
           <input
             {...fields.initialAmount.registerInput}
             type="number"
-            defaultValue={10000}
+            defaultValue={1000}
             className="rounded-lg rounded-s-none p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             tabIndex={1}
             onFocus={() => handleFocus(fields.initialAmount.ref)}

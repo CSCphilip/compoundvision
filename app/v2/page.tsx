@@ -16,7 +16,11 @@ export default function CompoundVisionV2() {
   return (
     <main className="flex flex-col bg-[#0d1421] w-screen min-h-screen overflow-x-hidden">
       <div className="flex justify-center mr-2 -mt-2">
-        <img src="/CompoundVision_logo.png" className="scale-[0.7]" />
+        <img
+          src="/CompoundVision_logo.png"
+          className="scale-[0.7]"
+          alt="logo"
+        />
       </div>
 
       <div className="z-0 w-11/12 h-5/6 self-center absolute mt-32 border-t-2 border-x-2 border-blue-700 rounded-full border-shadow" />

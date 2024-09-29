@@ -26,6 +26,7 @@ export default function CompoundInterestChart() {
     console.log(calculatedCompoundedInterest);
 
     setCompoundInterestData(calculatedCompoundedInterest);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputFormData]);
 
   const [isMounted, setIsMounted] = useState(false);

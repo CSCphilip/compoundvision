@@ -57,6 +57,7 @@ export default function FutureValueDisplay() {
       setFutureValue("$" + formatAmount(finalFutureValue.total));
       setFutureValueComments("\u00A0");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [compoundInterestData]);
 
   return (

@@ -25,6 +25,7 @@ export default function CompoundVisionV3() {
         <img
           src="/CompoundVision_logo.png"
           className="scale-[0.8] sm:scale-[0.7]"
+          alt="logo"
         />
       </div>
 

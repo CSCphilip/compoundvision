@@ -8,7 +8,7 @@ export default function InformationSection() {
         interactive visualization, demonstrating the powerful impact of this
         financial principle. Compound interest is like a snowball that grows
         faster the larger it gets; you earn interest not only on the initial
-        amount saved but also on the interest you've already earned. This
+        amount saved but also on the interest you&apos;ve already earned. This
         calculator can also factor in inflation, allowing you to see the real
         future value of your savings, and monthly contributions for even greater
         returns. Those who neglect it miss out on a significant opportunity. The
@@ -18,7 +18,7 @@ export default function InformationSection() {
 
       <Link
         href="/v3/information"
-        className="mt-14 sm:mt-20 text-sm sm:text-lg font-medium hover:text-green-400 border rounded-md px-14 sm:px-20 py-3 sm:py-4 text-white"
+        className="mt-14 sm:mt-20 text-sm sm:text-lg font-medium hover:text-blue-400 hover:bg-opacity-90 border rounded-md px-14 sm:px-20 py-3 sm:py-4 text-white"
       >
         Read more
       </Link>

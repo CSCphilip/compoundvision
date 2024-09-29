@@ -1,0 +1,9 @@
+services:
+  compoundvision:
+    image: compoundvision:latest
+    container_name: compoundvision
+    ports:
+      - "3000:3000"
+    restart: always
+    volumes:
+      - nextjs_cache:/app/.next
