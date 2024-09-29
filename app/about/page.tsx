@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function About() {
   return (
     <div className="bg-[#0d1421] w-screen min-h-screen flex flex-col justify-center items-center text-white py-10">
-      <p className="px-4 text-center max-w-[610px]">
+      <p className="px-4 text-center max-w-[605px]">
         The idea for this project came from wanting to build a website with a
         graph in React and Next.js. Furthermore, I had recently read a book on
         finance, and with this, I got the idea to build a compound interest
@@ -16,14 +16,15 @@ export default function About() {
         because I like to create websites that look good. A lot of thought and
         effort went into designing the form for the calculator, including
         features such as input validation, disabled fields, and text selection
-        to enable quick changes to inputs. I have also considered from the
-        user&apos;s perspective which is unfamiliar with these concepts, by
-        describing them clearly in the text as well as through intuitive UI
-        design. I also wanted to include some playfulness in the project, so I
-        included a quote from Einstein on the website which slides in on hover
-        (larger screens) and on click (smaller screens). Some say it takes three
-        attempts to build something well, and this is the first time I really
-        followed this philosophy for coding, and I am pleased with the result (
+        to enable quick changes to inputs. I have also considered the
+        user&apos;s perspective, assuming they may be unfamiliar with these
+        concepts, and addressed this by providing clear explanations in the text
+        and tried making an intuitive UI design. I also wanted to include some
+        playfulness in the project, so I included a quote from Einstein on the
+        website which slides in on hover (larger screens) and on click (smaller
+        screens). Some say it takes three attempts to build something well, and
+        this is the first time I really followed this philosophy for coding, and
+        I am pleased with the result (
         <Link href="/v1" className="text-blue-500 hover:underline">
           first version
         </Link>
