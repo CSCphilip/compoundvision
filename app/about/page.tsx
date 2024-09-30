@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function About() {
   return (
     <div className="bg-[#0d1421] w-screen min-h-screen flex flex-col justify-center items-center text-white py-10">
-      <p className="px-4 text-center max-w-[605px]">
+      <p className="px-4 text-center max-w-[620px]">
         The idea for this project came from wanting to build a website with a
         graph in React and Next.js. Furthermore, I had recently read a book on
         finance, and with this, I got the idea to build a compound interest
@@ -35,10 +35,10 @@ export default function About() {
         hopefully leveraging the power of compound interest.
       </p>
       <p className="text-center px-6 mt-4">
-        Made by Philip Andersson, with passion for tech and finance.
+        Made by Philip Andersson, with an interest in tech and finance.
       </p>
       <p className="text-center px-6 mt-1 italic">
-        September 29, 2024. Stockholm, Sweden.
+        September 30, 2024. Stockholm, Sweden.
       </p>
       <Link
         href={"https://github.com/CSCphilip/compoundvision"}

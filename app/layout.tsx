@@ -8,7 +8,34 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "CompoundVision",
-  description: "Explore the power of compound interest",
+  description: "Explore the power of compound interest.",
+  openGraph: {
+    title: "CompoundVision",
+    description: "Explore the power of compound interest.",
+    url: "https://compound-interest.com",
+    siteName: "CompoundVision",
+    images: [
+      {
+        url: "https://compound-interest.com/api/meta/opengraph/image",
+        width: 1200,
+        height: 627,
+        alt: "CompoundVision logo",
+      },
+    ],
+    locale: "en",
+    type: "website",
+  },
+  metadataBase: new URL("https://compound-interest.com"),
+  creator: "Philip Andersson",
+  keywords: [
+    "finance",
+    "graph",
+    "compound interest",
+    "react",
+    "next.js",
+    "tech",
+  ],
+  generator: "Next.js",
 };
 
 export default function RootLayout({
