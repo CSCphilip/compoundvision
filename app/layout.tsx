@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "CompoundVision",
     description: "Explore the power of compound interest.",
-    url: "https://compound-interest.com",
+    url: "https://compound-vision.com",
     siteName: "CompoundVision",
     images: [
       {
-        url: "https://compound-interest.com/api/meta/opengraph/image",
+        url: "https://compound-vision.com/api/meta/opengraph/image",
         width: 1200,
         height: 627,
         alt: "CompoundVision logo",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     locale: "en",
     type: "website",
   },
-  metadataBase: new URL("https://compound-interest.com"),
+  metadataBase: new URL("https://compound-vision.com"),
   creator: "Philip Andersson",
   keywords: [
     "finance",
