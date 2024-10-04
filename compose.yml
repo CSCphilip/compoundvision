@@ -1,6 +1,6 @@
 services:
   compoundvision:
-    image: compoundvision:latest
+    image: compoundvision:1.0
     container_name: compoundvision
     ports:
       - "3000:3000"

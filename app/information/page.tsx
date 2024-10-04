@@ -16,8 +16,8 @@ export default function Information() {
           <div className="bg-slate-50 text-neutral-800 rounded-lg px-4 sm:px-6 pt-6 sm:pt-8 pb-3 sm:pb-5 lg:w-1/2">
             <h2 className="font-bold text-xl sm:text-2xl">Compound Interest</h2>
             <p className="mt-1 sm:mt-2">
-              The powerful financial principle of compound interest, from which
-              everybody can benefit after knowing about it. With compound
+              The powerful financial principle of compound interest is something
+              everyone can benefit from once they understand it. With compound
               interest, you can make your money work for you instead of the
               other way around. Allegedly, Albert Einstein called compound
               interest the eighth wonder of the world.
@@ -42,7 +42,7 @@ export default function Information() {
             <p className="mt-3 sm:mt-4">
               When it comes to compound interest, the most important factor is
               the time you save and allow your saved money to compound. “The
-              best time to plant a tree was 30 years ago, the second best time
+              best time to plant a tree was 20 years ago, the second best time
               is now.” To really get to experience the effects of compound
               interest, it is important to start saving early. To achieve the
               same returns when saving smaller amounts over a longer period, you
@@ -104,11 +104,11 @@ export default function Information() {
             <p>
               Compound interest also applies to debt. If you have a loan and
               don&apos;t pay the interest, this will be added to the debt and
-              increase the amount of interest you need to pay in the future. You
-              could say it is the reverse as if you saved money with compound
-              interest. The debt will increasingly grow, and it gets harder to
-              pay it off. That&apos;s why it&apos;s crucial to pay off debt as
-              quickly as possible.
+              simply increase the amount of interest you need to pay in the
+              future. You could say it is the reverse as if you saved money with
+              compound interest. The debt will increasingly grow, and it gets
+              harder to pay it off. That&apos;s why it&apos;s crucial to pay off
+              debt as quickly as possible.
             </p>
           </div>
 
@@ -135,7 +135,7 @@ export default function Information() {
                     <i>r</i> - is the annual interest rate (decimal)
                   </li>
                   <li>
-                    <i>n</i> - is number of years of applied annual interest
+                    <i>n</i> - is the number of years of applied annual interest
                   </li>
                 </ul>
                 <p className="mt-3 sm:mt-4">
@@ -187,8 +187,9 @@ export default function Information() {
                 With the CompoundVision calculator, you can enter an annual
                 inflation rate. This really shows how much of an impact
                 inflation has on each person&apos;s future savings. There is a
-                common misconception when considering the future value of money,
-                which is also intended to be emphasized with this calculator.
+                common overlooked misconception when considering the future
+                value of money, which is also intended to be emphasized with
+                this calculator.
               </p>
               <p className="mt-3 sm:mt-4">
                 Inflation is a general increase in prices of goods and services
@@ -209,10 +210,10 @@ export default function Information() {
               </p>
               <p className="mt-3 sm:mt-4">
                 Without any interest on your capital, it will decrease in value
-                over time. Try the calculator with an interest rate of zero and
+                over time. Try the calculator with an interest rate of 0% and
                 some inflation rate (e.g., 2%), and you will see the real future
                 value of your savings. To counteract the impact of inflation, it
-                is important to obtain a minimum of the same annual interest
+                is good if you can obtain a minimum of the same annual interest
                 rate on your savings as the national annual inflation rate. With
                 compound interest, it will be easier to beat inflation.
               </p>

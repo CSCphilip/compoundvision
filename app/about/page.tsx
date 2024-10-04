@@ -38,10 +38,12 @@ export default function About() {
         Made by Philip Andersson, with an interest in tech and finance.
       </p>
       <p className="text-center px-6 mt-1 italic">
-        September 30, 2024. Stockholm, Sweden.
+        October 5, 2024. Stockholm, Sweden.
       </p>
-      <Link
+      <a
         href={"https://github.com/CSCphilip/compoundvision"}
+        target="_blank"
+        rel="noopener noreferrer"
         className="mt-5"
       >
         <img
@@ -49,7 +51,7 @@ export default function About() {
           className="size-10 hover:opacity-80 hover:rotate-12 transition-all duration-500"
           alt="GitHub logo"
         />
-      </Link>
+      </a>
       <Link className="mt-8 size-10" href="/">
         <svg
           viewBox="0 0 24 24"
@@ -71,6 +73,15 @@ export default function About() {
           </g>
         </svg>
       </Link>
+
+      <div className="max-w-[620px] px-6 mt-20">
+        <p className="text-sm border-l border-l-purple-700 ps-2 py-0.5">
+          <b>Disclaimer:</b> This calculator is for informational and
+          educational purposes only. The results provided are estimates and
+          should not be considered financial advice. Please consult a financial
+          professional for personalized guidance.
+        </p>
+      </div>
     </div>
   );
 }
