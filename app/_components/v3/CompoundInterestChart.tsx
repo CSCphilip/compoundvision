@@ -165,7 +165,7 @@ export default function CompoundInterestChart() {
           )}
           <Area
             type="monotone"
-            dataKey="contributions"
+            dataKey="accumulatedContributions"
             stroke="#8884d8"
             strokeWidth={2}
             fillOpacity={1}
@@ -284,7 +284,6 @@ function abbrNum(number: number, decPlaces: number) {
   return res;
 }
 
-//TODO: optional: the reverse where a user clicks on a year and amount where the initial is calculated and the rest from there.
 function calcCompoundInterest(
   inputFormData: InputFormData
 ): CompoundInterestData[] {
@@ -306,18 +305,18 @@ function calcCompoundInterest(
       inputFormData.monthlyContribution && inputFormData.annualInflationRate
         ? inputFormData.initialAmount
         : undefined,
-    contributions: inputFormData.initialAmount,
+    accumulatedContributions: inputFormData.initialAmount,
   });
 
-  const interestRate = inputFormData.estimatedInterestRate / 100;
+  const interestRateDecimal = inputFormData.estimatedInterestRate / 100;
 
   const calcInflationAdjustment = inputFormData.annualInflationRate;
   const calcCompoundWithMonthlyContribution = inputFormData.monthlyContribution;
 
   let total = inputFormData.initialAmount;
-  let contributions = total;
-  for (var i = 1; i <= inputFormData.years; i++) {
-    const interest = total * interestRate;
+  let accumulatedContributions = total;
+  for (let i = 1; i <= inputFormData.years; i++) {
+    const interest = total * interestRateDecimal;
     total += interest;
 
     let totalInflationAdjusted: number | undefined = undefined;
@@ -328,24 +327,34 @@ function calcCompoundInterest(
 
     // Compound interest of monthly contributions with an annual period (not compounded every month)
     // Formula based on: https://rikatillsammans.se/ranta-pa-ranta-formler-excels-slutvarde-och-min-kalkylator/
+    // Remember to to use annual compound frequency and calculate at the end of the year.
     let totalWithContributions: number | undefined = undefined;
     let totalWithContributionsInflationAdjusted: number | undefined = undefined;
     if (calcCompoundWithMonthlyContribution) {
-      const currentMonthlyContribution =
-        inputFormData.annualContributionIncreaseRate
-          ? inputFormData.monthlyContribution! *
-            Math.pow(
-              1 + inputFormData.annualContributionIncreaseRate / 100,
-              i - 1
-            )
-          : inputFormData.monthlyContribution!;
-      contributions += currentMonthlyContribution * 12;
-      totalWithContributions = total;
-      totalWithContributions +=
-        (currentMonthlyContribution *
-          12 *
-          (Math.pow(1 + interestRate, i) - 1)) /
-        interestRate;
+      let compoundedContributions = 0; // The second part in the equation for monthly contributions included
+      for (let j = 1; j <= i; j++) {
+        let currentMonthlyContribution = inputFormData.monthlyContribution!;
+
+        if (inputFormData.annualContributionIncreaseRate) {
+          currentMonthlyContribution *= Math.pow(
+            1 + inputFormData.annualContributionIncreaseRate / 100,
+            j - 1
+          );
+        }
+
+        const currentYearContributions = currentMonthlyContribution * 12;
+
+        if (i === j) {
+          accumulatedContributions += currentYearContributions;
+        }
+
+        const compoundedCurrentYearContributions =
+          currentYearContributions * Math.pow(1 + interestRateDecimal, i - j);
+
+        compoundedContributions += compoundedCurrentYearContributions;
+      }
+
+      totalWithContributions = total + compoundedContributions;
 
       if (calcInflationAdjustment) {
         totalWithContributionsInflationAdjusted =
@@ -361,7 +370,7 @@ function calcCompoundInterest(
       totalInflationAdjusted,
       totalWithContributions,
       totalWithContributionsInflationAdjusted,
-      contributions,
+      accumulatedContributions: accumulatedContributions,
     });
   }
 

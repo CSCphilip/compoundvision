@@ -17,7 +17,7 @@ export type CompoundInterestData = {
   interest: number;
   totalInflationAdjusted?: number;
   totalWithContributions?: number;
-  contributions?: number; // From monthly contributions (accumulated), initial + contributions
+  accumulatedContributions?: number; // From monthly contributions (accumulated), initial + contributions
   totalWithContributionsInflationAdjusted?: number;
 };
 

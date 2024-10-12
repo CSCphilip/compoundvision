@@ -24,6 +24,7 @@ export default function SimpleFields({
           <input
             {...fields.initialAmount.registerInput}
             type="number"
+            step=".01"
             defaultValue={1000}
             className="rounded-lg rounded-s-none p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             tabIndex={1}
@@ -62,12 +63,13 @@ export default function SimpleFields({
       </li>
       <li className="flex flex-col items-center">
         <label className="font-medium mb-2 text-white">
-          Estimated interest rate:
+          Annual interest rate:
         </label>
         <div className="flex justify-center">
           <input
             {...fields.estimatedInterestRate.registerInput}
             type="number"
+            step=".01"
             defaultValue={8}
             className="rounded-lg rounded-e-none p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             tabIndex={3}

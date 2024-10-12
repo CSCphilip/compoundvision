@@ -39,6 +39,7 @@ export default function AdvancedFields({
               <input
                 {...fields.annualInflationRate.registerInput}
                 type="number"
+                step=".01"
                 className="rounded-lg rounded-e-none p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 onFocus={() => handleFocus(fields.annualInflationRate.ref)}
                 ref={(e) => {
@@ -67,6 +68,7 @@ export default function AdvancedFields({
               <input
                 {...fields.monthlyContribution.registerInput}
                 type="number"
+                step=".01"
                 className="rounded-lg rounded-s-none p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 onFocus={() => handleFocus(fields.monthlyContribution.ref)}
                 ref={(e) => {
@@ -89,6 +91,7 @@ export default function AdvancedFields({
               <input
                 {...fields.annualContributionIncreaseRate.registerInput}
                 type="number"
+                step=".01"
                 className={`rounded-lg rounded-e-none p-2 text-white bg-[#323546] outline-none w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
                   monthlyContribution === 0 && "cursor-not-allowed"
                 }`}

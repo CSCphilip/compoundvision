@@ -13,8 +13,8 @@ export default function About() {
         charting library called Recharts and a motion library called Framer
         Motion, both built for React. The website&apos;s design, created by
         myself using Tailwind CSS, is fully responsive and carefully thought out
-        because I like to create websites that look good. A lot of thought and
-        effort went into designing the form for the calculator, including
+        because I like to try creating websites that look good. A lot of thought
+        and effort went into designing the form for the calculator, including
         features such as input validation, disabled fields, and text selection
         to enable quick changes to inputs. I have also considered the
         user&apos;s perspective, assuming they may be unfamiliar with these
@@ -38,7 +38,7 @@ export default function About() {
         Made by Philip Andersson, with an interest in tech and finance.
       </p>
       <p className="text-center px-6 mt-1 italic">
-        October 5, 2024. Stockholm, Sweden.
+        October 12, 2024. Stockholm, Sweden.
       </p>
       <a
         href={"https://github.com/CSCphilip/compoundvision"}

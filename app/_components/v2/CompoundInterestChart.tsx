@@ -121,7 +121,7 @@ export default function CompoundInterestChart() {
         )}
         <Area
           type="monotone"
-          dataKey="contributions"
+          dataKey="accumulatedContributions"
           stroke="#8884d8"
           strokeWidth={2}
           fillOpacity={1}
@@ -261,7 +261,7 @@ function calcCompoundInterest(
       inputFormData.monthlyContribution && inputFormData.annualInflationRate
         ? inputFormData.initialAmount
         : undefined,
-    contributions: inputFormData.initialAmount,
+    accumulatedContributions: inputFormData.initialAmount,
   });
 
   const interestRate = inputFormData.estimatedInterestRate / 100;
@@ -270,7 +270,7 @@ function calcCompoundInterest(
   const calcCompoundWithMonthlyContribution = inputFormData.monthlyContribution;
 
   let total = inputFormData.initialAmount;
-  let contributions = total;
+  let accumulatedContributions = total;
   for (var i = 1; i <= inputFormData.years; i++) {
     const interest = total * interestRate;
     total += interest;
@@ -294,7 +294,7 @@ function calcCompoundInterest(
               i - 1
             )
           : inputFormData.monthlyContribution!;
-      contributions += currentMonthlyContribution * 12;
+      accumulatedContributions += currentMonthlyContribution * 12;
       totalWithContributions = total;
       totalWithContributions +=
         currentMonthlyContribution *
@@ -315,7 +315,7 @@ function calcCompoundInterest(
       totalInflationAdjusted,
       totalWithContributions,
       totalWithContributionsInflationAdjusted,
-      contributions,
+      accumulatedContributions,
     });
   }
 

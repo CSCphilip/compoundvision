@@ -12,7 +12,7 @@ export default function Information() {
   return (
     <main className="bg-[#0d1421] w-screen min-h-screen overflow-x-hidden p-4 sm:p-6">
       <div className="flex justify-center">
-        <div className="flex flex-col lg:flex-row gap-8 sm:gap-4 max-w-[1700px]">
+        <div className="flex flex-col lg:flex-row gap-8 sm:gap-4 max-w-[1750px]">
           <div className="bg-slate-50 text-neutral-800 rounded-lg px-4 sm:px-6 pt-6 sm:pt-8 pb-3 sm:pb-5 lg:w-1/2">
             <h2 className="font-bold text-xl sm:text-2xl">Compound Interest</h2>
             <p className="mt-1 sm:mt-2">
@@ -56,18 +56,18 @@ export default function Information() {
               interval (see more in “The Formula”).
             </p>
             <p className="mt-3 sm:mt-4">
-              There are different compound interest intervals, for instance
+              There are different compound interest intervalls, for instance
               annually, quarterly, and monthly. The more frequently you compound
               your savings, the higher the returns over time. Annual is used in
               CompoundVision, which was chosen because it is the most common
-              interval.
+              frequency.
             </p>
             <p className="mt-3 sm:mt-4">
               Monthly contributions, which you can include in the CompoundVision
               calculator, will also greatly impact the long-term return. This is
               because you will earn compound interest on these contributions as
-              well. As for the frequency, the monthly contributions are
-              compounded annually.
+              well in addition to the initial amount. As for the frequency, the
+              monthly contributions are compounded annually.
             </p>
 
             <h3 className="font-bold text-lg mt-3">Example:</h3>
@@ -107,8 +107,8 @@ export default function Information() {
               simply increase the amount of interest you need to pay in the
               future. You could say it is the reverse as if you saved money with
               compound interest. The debt will increasingly grow, and it gets
-              harder to pay it off. That&apos;s why it&apos;s crucial to pay off
-              debt as quickly as possible.
+              harder to pay off. That&apos;s why it&apos;s crucial to at least
+              pay off the debt interest as quickly as possible.
             </p>
           </div>
 
@@ -121,28 +121,33 @@ export default function Information() {
                   the future value.
                 </p>
                 <MathJax className="w-fit">
-                  {"\\(FV=P\\cdot(1+r)^{n}\\)"}
+                  {"\\(FV=P\\cdot(1+r)^{t}\\)"}
                 </MathJax>
                 <p className="mt-2 sm:mt-3">where:</p>
                 <ul className="list-disc list-inside ms-1">
                   <li>
-                    <i>FV</i> - is the future value
+                    <MathJax inline={true}>{"\\(FV\\)"}</MathJax> - is the
+                    future value
                   </li>
                   <li>
-                    <i>P</i> - is the initial amount
+                    <MathJax inline={true}>{"\\(i\\)"}</MathJax> - is the
+                    principal
                   </li>
                   <li>
-                    <i>r</i> - is the annual interest rate (decimal)
+                    <MathJax inline={true}>{"\\(r\\)"}</MathJax> - is the annual
+                    interest rate (decimal)
                   </li>
                   <li>
-                    <i>n</i> - is the number of years of applied annual interest
+                    <MathJax inline={true}>{"\\(t\\)"}</MathJax> - is the number
+                    of years of applied annual interest
                   </li>
                 </ul>
                 <p className="mt-3 sm:mt-4">
                   The formula is an exponential function that increasingly grows
-                  the greater n becomes (increasingly grows over time). This
-                  formula is derived from a more complex one, where the interval
-                  has been set to one year.
+                  the greater <MathJax inline={true}>{"\\(t\\)"}</MathJax>{" "}
+                  becomes (increasingly grows over time). This formula is
+                  derived from a more complex one, where the frequency has been
+                  set to one year.
                 </p>
                 <h3 className="font-bold text-lg mt-3 mb-2 sm:mb-3">
                   Monthly contributions included:
@@ -151,32 +156,47 @@ export default function Information() {
                 <div className="hidden formula:inline">
                   <MathJax className="w-fit">
                     {
-                      "\\(FV=P\\cdot(1+r)^{n}+\\frac{c\\cdot12\\cdot(1+r)^{n}-1}{r}\\)"
+                      "\\(FV=\\sum\\nolimits_{i = 1}^t {M\\cdot12\\cdot(1+g)^{i-1}\\cdot(1+r)^{t-i}}\\)"
                     }
                   </MathJax>
                 </div>
                 <div className="formula:hidden">
                   <MathJax className="w-fit">
-                    {"\\(FV=P\\cdot(1+r)^{n}+\\)"}
+                    {"\\(FV=\\sum\\nolimits_{i = 1}^t {M\\cdot12\\cdot}\\)"}
                   </MathJax>
                   <MathJax className="w-fit">
-                    {"\\(+\\frac{c\\cdot12\\cdot(1+r)^{n}-1}{r}\\)"}
+                    {"\\((1+g)^{i-1}\\cdot(1+r)^{t-i}\\)"}
                   </MathJax>
                 </div>
                 <p className="mt-2 sm:mt-3">where:</p>
                 <ul className="list-disc list-inside ms-1">
                   <li>
-                    <i>c</i> - is the monthly contribution
+                    <MathJax inline={true}>{"\\(M\\)"}</MathJax> - is the
+                    monthly contribution
+                  </li>
+                  <li>
+                    <MathJax inline={true}>{"\\(g\\)"}</MathJax> - is the yearly
+                    increase rate of the monthly contribution (decimal)
                   </li>
                 </ul>
                 <p className="mt-3 sm:mt-4">
-                  The first part of this formula is the same as the previous one
-                  shown above. The additional part includes the calculation of
-                  compound interest on only the monthly contributions. These
-                  parts are added together to obtain the future value. This
-                  formula has also been derived from a more complex one, where
-                  the interval has been set to one year and the contributions to
-                  be monthly.
+                  This formula calculates the compound interest of continuous
+                  monthly deposits over{" "}
+                  <MathJax inline={true}>{"\\(t\\)"}</MathJax> years. When{" "}
+                  <MathJax inline={true}>{"\\(g\\)"}</MathJax> is greater than
+                  0, a yearly increase in the monthly contributions is applied
+                  to the calculation. This formula is derived from a more
+                  complex one, where the compound frequency has been set to one
+                  year. Additionally, the formula is based on monthly
+                  contributions instead of quarterly, semi-annual, or other
+                  possible contribution intervals. Note also that this formula
+                  calculates the compound at the end of the year.
+                </p>
+                <h3 className="font-bold text-lg mt-3">Combined formula:</h3>
+                <p className="sm:mt-1">
+                  By adding the above formulas, you can calculate the compound
+                  interest on an initial amount along with monthly
+                  contributions, resulting in the total future value.
                 </p>
               </MathJaxContext>
             </div>
