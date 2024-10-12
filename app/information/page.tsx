@@ -56,7 +56,7 @@ export default function Information() {
               interval (see more in “The Formula”).
             </p>
             <p className="mt-3 sm:mt-4">
-              There are different compound interest intervalls, for instance
+              There are different compound interest intervals, for instance
               annually, quarterly, and monthly. The more frequently you compound
               your savings, the higher the returns over time. Annual is used in
               CompoundVision, which was chosen because it is the most common
@@ -108,7 +108,7 @@ export default function Information() {
               future. You could say it is the reverse as if you saved money with
               compound interest. The debt will increasingly grow, and it gets
               harder to pay off. That&apos;s why it&apos;s crucial to at least
-              pay off the debt interest as quickly as possible.
+              pay off the interest as quickly as possible.
             </p>
           </div>
 
