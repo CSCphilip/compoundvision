@@ -130,7 +130,7 @@ export default function Information() {
                     future value
                   </li>
                   <li>
-                    <MathJax inline={true}>{"\\(i\\)"}</MathJax> - is the
+                    <MathJax inline={true}>{"\\(P\\)"}</MathJax> - is the
                     principal
                   </li>
                   <li>
